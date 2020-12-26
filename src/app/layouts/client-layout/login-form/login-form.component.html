@@ -1,0 +1,43 @@
+<div class="template-login">
+  <div class="container ">
+    <br>
+    <h1 class="text-center" style="color: yellow;    text-shadow: 3px 3px #ff0000;"> Quản lý tài chính cá nhân</h1>
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Đăng nhập</h5>
+            <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+              <div class="form-label-group">
+                <label for="inputEmail">Username</label>
+                <input type="text" id="inputEmail" class="form-control" placeholder="Username" required autofocus formControlName="username">
+                <div class="text-danger" *ngIf="f.username.errors &&(f.username.dirty || f.username.touched)">
+                  <div *ngIf="f.username.errors.required">Bạn chưa nhập tài khoản</div>
+                </div>
+              </div>
+
+              <div class="form-label-group">
+                <label for="inputPassword">Mật khẩu</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required formControlName="password">
+                <div class="text-danger" *ngIf="f.password.errors &&(f.password.dirty || f.password.touched)">
+                  <div *ngIf="f.password.errors.required">Bạn chưa nhập mật khẩu</div>
+                </div>
+              </div>
+
+              <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <label class="custom-control-label" for="customCheck1">Remember password</label>
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng nhập</button>
+              <hr class="my-4">
+
+              <span>Bạn chưa có tài khoản ? </span>  <a routerLink="/register">Đăng ký</a>
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

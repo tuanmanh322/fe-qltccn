@@ -1,0 +1,174 @@
+
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-8">
+      <div class=" card">
+        <div class=" card-header"><h5 class=" title">Trang cá nhân</h5></div>
+        <div class=" card-body">
+          <form [formGroup]="formUser">
+            <div class=" row">
+              <div class=" col-md-5 pr-md-1">
+                <div class=" form-group">
+                  <label> Username</label>
+                  <input
+                    class=" form-control"
+                    disabled=""
+                    placeholder="username"
+                    type="text"
+                    [value]="userPro.username"
+                  />
+                </div>
+              </div>
+              <div class=" col-md-3 px-md-1">
+                <div class=" form-group">
+                  <label>Quyền</label>
+                  <input
+                    class=" form-control"
+                    placeholder="role"
+                    type="text"
+                    [value]="userPro.roleName"
+                    disabled=""
+                  />
+                </div>
+              </div>
+              <div class=" col-md-4 pl-md-1">
+                <div class=" form-group">
+                  <label for="email">Email </label>
+                  <input
+                    class=" form-control"
+                    placeholder="email"
+                    [value]="userPro.email"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-12 pr-md-1">
+                <div class=" form-group">
+                  <label>Ngày sinh</label>
+                  <input
+                    class=" form-control"
+                    type="date"
+                    formControlName="ngaysinh"
+                  />
+                  <div class="text-danger" *ngIf="f.ngaysinh.errors &&(f.ngaysinh.dirty || f.ngaysinh.touched)">
+                    <div *ngIf="f.ngaysinh.errors.required">Bạn chưa nhập ngày sinh</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-12 pr-md-1">
+                <div class=" form-group">
+                  <label>Tên khách hàng</label>
+                  <input
+                    class=" form-control"
+                    placeholder="Tên khách hàng"
+                    type="text"
+                     formControlName="tenkhachhang"
+                  />
+                  <div class="text-danger" *ngIf="f.tenkhachhang.errors &&(f.tenkhachhang.dirty || f.tenkhachhang.touched)">
+                    <div *ngIf="f.tenkhachhang.errors.required">Bạn chưa nhập tên khách hàng</div>
+                  </div>
+                </div>
+              </div>
+<!--              <div class=" col-md-6 pl-md-1">-->
+<!--                <div class=" form-group">-->
+<!--                  <label> Last Name </label>-->
+<!--                  <input-->
+<!--                    class=" form-control"-->
+<!--                    placeholder="Last Name"-->
+<!--                    type="text"-->
+<!--                    value="Andrew"-->
+<!--                  />-->
+<!--                </div>-->
+<!--              </div>-->
+            </div>
+            <div class=" row">
+              <div class=" col-md-12">
+                <div class=" form-group">
+                  <label> Địa chỉ </label>
+                  <input
+                    class=" form-control"
+                    placeholder="Địa chỉ"
+                    type="text"
+                     formControlName="diachi"
+                  />
+                  <div class="text-danger" *ngIf="f.diachi.errors &&(f.diachi.dirty || f.diachi.touched)">
+                    <div *ngIf="f.diachi.errors.required">Bạn chưa nhập địa chỉ</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-12">
+                <div class=" form-group">
+                  <label> Nghề nghiệp </label>
+                  <input
+                    class=" form-control"
+                    placeholder="Nghề nghiệp"
+                    type="text"
+                    formControlName="nghenghiep"
+                  />
+                  <div class="text-danger" *ngIf="f.nghenghiep.errors &&(f.nghenghiep.dirty || f.nghenghiep.touched)">
+                    <div *ngIf="f.nghenghiep.errors.required">Bạn chưa nhập nghề nghiệp</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class=" card-footer">
+          <button class=" btn btn-fill btn-danger" type="submit" (click)="edit()">Cập nhật</button>
+        </div>
+      </div>
+    </div>
+<!--    <div class=" col-md-4">-->
+<!--      <div class=" card card-user">-->
+<!--        <div class=" card-body">-->
+<!--          <p class=" card-text"></p>-->
+<!--          <div class=" author">-->
+<!--            <div class=" block block-one"></div>-->
+<!--            <div class=" block block-two"></div>-->
+<!--            <div class=" block block-three"></div>-->
+<!--            <div class=" block block-four"></div>-->
+<!--            <a href="javascript:void(0)">-->
+<!--              <img alt="..." class=" avatar" src="assets/img/emilyz.jpg" />-->
+
+<!--              <h5 class=" title">Mike Andrew</h5>-->
+<!--            </a>-->
+<!--            <p class=" description">Ceo/Co-Founder</p>-->
+<!--          </div>-->
+<!--          <div class=" card-description">-->
+<!--            Do not be scared of the truth because we need to restart the human-->
+<!--            foundation in truth And I love you like Kanye loves Kanye I love-->
+<!--            Rick Owens’ bed design but the back is...-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class=" card-footer">-->
+<!--          <div class=" button-container">-->
+<!--            <button-->
+<!--              class=" btn btn-icon btn-round btn-facebook"-->
+<!--              href="javascript:void(0)"-->
+<!--            >-->
+<!--              <i class=" fab fa-facebook"> </i>-->
+<!--            </button>-->
+<!--            <button-->
+<!--              class=" btn btn-icon btn-round btn-twitter"-->
+<!--              href="javascript:void(0)"-->
+<!--            >-->
+<!--              <i class=" fab fa-twitter"> </i>-->
+<!--            </button>-->
+<!--            <button-->
+<!--              class=" btn btn-icon btn-round btn-google"-->
+<!--              href="javascript:void(0)"-->
+<!--            >-->
+<!--              <i class=" fab fa-google-plus"> </i>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+</div>

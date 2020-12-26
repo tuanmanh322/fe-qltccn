@@ -1,0 +1,76 @@
+<div class="template-login">
+  <div class="container ">
+    <br>
+    <h1 class="text-center" style="color: yellow;    text-shadow: 3px 3px #ff0000;"> Quản lý tài chính cá nhân</h1>
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Đăng ký</h5>
+            <form class="form-signin" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+              <div class="form-label-group">.
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Username" required autofocus formControlName="username">
+                <div class="text-danger" *ngIf="f.username.errors &&(f.username.dirty || f.username.touched)">
+                  <div *ngIf="f.username.errors.required">Bạn chưa nhập tài khoản</div>
+                </div>
+              </div>
+
+              <div class="form-label-group">
+                <label for="inputPassword">Mật khẩu</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required formControlName="password">
+                <div class="text-danger" *ngIf="f.password.errors &&(f.password.dirty || f.password.touched)">
+                  <div *ngIf="f.password.errors.required">Bạn chưa nhập mật khẩu</div>
+                </div>
+              </div>
+
+              <div class="form-label-group">
+                <label for="inputPassword">Họ và tên</label>
+                <input type="text" id="inputPassword" class="form-control" placeholder="Họ và tên" required formControlName="tenkhachhang">
+                <div class="text-danger" *ngIf="f.tenkhachhang.errors &&(f.tenkhachhang.dirty || f.tenkhachhang.touched)">
+                  <div *ngIf="f.tenkhachhang.errors.required">Bạn chưa nhập tên</div>
+                </div>
+              </div>
+
+              <div class="form-label-group">
+                <label for="inputPassword">Ngày sinh</label>
+                <input type="date" id="inputPassword" class="form-control" placeholder="Ngày sinh" required formControlName="ngaysinh">
+                <div class="text-danger" *ngIf="f.ngaysinh.errors &&(f.ngaysinh.dirty || f.ngaysinh.touched)">
+                  <div *ngIf="f.ngaysinh.errors.required">Bạn chưa nhập ngày sinh</div>
+                </div>
+              </div>
+
+              <div class="form-label-group">
+                <label for="inputPassword">Email</label>
+                <input type="text" id="email" class="form-control" placeholder="Email" required formControlName="email">
+                <div class="text-danger" *ngIf="f.email.errors &&(f.email.dirty || f.email.touched)">
+                  <div *ngIf="f.email.errors.required">Bạn chưa nhập email</div>
+                </div>
+              </div>
+
+              <div class="form-label-group">
+                <label for="inputPassword">Nghề nghiệp</label>
+                <input type="text" id="inputPassword" class="form-control" placeholder="Nghề nghiệp" required formControlName="nghenghiep">
+                <div class="text-danger" *ngIf="f.nghenghiep.errors &&(f.nghenghiep.dirty || f.nghenghiep.touched)">
+                  <div *ngIf="f.nghenghiep.errors.required">Bạn chưa nhập nghề nghiệp</div>
+                </div>
+              </div>
+
+              <div class="form-label-group">
+                <label for="inputPassword">Địa chỉ</label>
+                <input type="text" id="address" class="form-control" placeholder="Địa chỉ" required formControlName="diachi">
+                <div class="text-danger" *ngIf="f.diachi.errors &&(f.diachi.dirty || f.diachi.touched)">
+                  <div *ngIf="f.diachi.errors.required">Bạn chưa nhập địa chỉ</div>
+                </div>
+              </div>
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Đăng ký</button>
+              <hr class="my-4">
+              <span>Bạn đã có tài khoản ? </span>  <a routerLink="/login">Đăng nhập</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
