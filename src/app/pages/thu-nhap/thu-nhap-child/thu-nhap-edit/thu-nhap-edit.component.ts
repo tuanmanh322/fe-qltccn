@@ -6,6 +6,7 @@ import {Title} from "@angular/platform-browser";
 import {ApiService} from "../../../../share/service/api.service";
 import {StorageService} from "../../../../share/service/storage.service";
 import {ToastrService} from "ngx-toastr";
+import {ThuNhap} from "../../../../share/model/thu-nhap";
 
 @Component({
   selector: 'app-thu-nhap-edit',
@@ -15,7 +16,7 @@ import {ToastrService} from "ngx-toastr";
 export class ThuNhapEditComponent implements OnInit {
 
   @Input()
-  ns: any;
+  tn: ThuNhap;
 
   thuNhapE: FormGroup;
   userPro: UserProfileModel;
@@ -31,10 +32,11 @@ export class ThuNhapEditComponent implements OnInit {
   ngOnInit(): void {
     this.userPro = this.store.getProfileJson();
     this.thuNhapE = this.fb.group({
-      loaingansach: new FormControl('',[Validators.required]),
-      loaitien: new FormControl('',[Validators.required]),
-      mota: new FormControl('',[Validators.required]),
-      sotien: new FormControl('',[Validators.required]),
+      kihan: new FormControl(this.tn.kihan,[Validators.required]),
+      loaitien: new FormControl(this.tn.loaitien,[Validators.required]),
+      mota: new FormControl(this.tn.mota,[Validators.required]),
+      sotien: new FormControl(this.tn.sotien,[Validators.required]),
+      ngaytao: new FormControl(this.tn.ngaytao,[Validators.required])
     })
   }
 
@@ -45,17 +47,19 @@ export class ThuNhapEditComponent implements OnInit {
   onCreate(){
     if (this.thuNhapE.valid){
       const cp = {
-        idUser: this.userPro.id,
-        loaingansach: this.thuNhapE.get('loaingansach').value,
+        id: this.tn.id,
+        kihan: this.thuNhapE.get('kihan').value,
         loaitien: this.thuNhapE.get('loaitien').value,
         mota: this.thuNhapE.get('mota').value,
         sotien: this.thuNhapE.get('sotien').value,
+        ngaytao: this.thuNhapE.get('ngaytao').value
       }
-      this.api.post('/chi-phi/add', cp).subscribe(() => {
-        this.api.onFilter('create');
-        this.toastr.success('Thêm thành công');
+      this.api.put('/thu-nhap/edit', cp).subscribe(() => {
+        this.api.onFilter('edit');
+        this.toastr.success('Sửa thành công');
+        this.activeModal.dismiss();
       },error =>  {
-        this.toastr.error('Thêm thất bại');
+        this.toastr.error('Sửa thất bại');
       })
     }
   }

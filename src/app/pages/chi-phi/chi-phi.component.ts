@@ -23,10 +23,13 @@ export class ChiPhiComponent implements OnInit {
     page: 0,
     pageSize: 10,
     tenloaingansach: '',
-    orders: []
+    orders: [],
+    thang: '',
+    year: ''
   };
   totalMoney = 0;
   cpList: ChiPhi[];
+  listYear =[];
   constructor(
     private ngbModal: NgbModal,
     private title: Title,
@@ -39,6 +42,9 @@ export class ChiPhiComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const now = new Date().getUTCFullYear();
+    this.listYear = Array(now - (now - 20)).fill('').map((v, idx) => now - idx) as Array<number>;
+
     this.title.setTitle('Chi phí');
     this.fetch();
 
@@ -49,6 +55,8 @@ export class ChiPhiComponent implements OnInit {
   }
 
   fetch() {
+
+    this.totalMoney = 0;
     this.apiService.post('/chi-phi/search', this.cpSearch).subscribe(res => {
       this.cpSearch = res;
       this.cpList = this.cpSearch.data;
@@ -76,5 +84,14 @@ export class ChiPhiComponent implements OnInit {
     },error =>  {
       this.toastr.error('Xóa thất bại');
     })
+  }
+  checkTime(event){
+    this.cpSearch.thang = event.target.value;
+    this.fetch();
+  }
+
+  checkTimeY(event){
+    this.cpSearch.year = event.target.value;
+    this.fetch();
   }
 }

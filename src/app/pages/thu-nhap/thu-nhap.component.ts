@@ -21,7 +21,9 @@ export class ThuNhapComponent implements OnInit {
     page: 0,
     pageSize: 10,
     orders: [],
-    mota: ''
+    mota: '',
+    thang:'',
+    year: ''
   };
 
   listTN: ThuNhap[];
@@ -31,6 +33,8 @@ export class ThuNhapComponent implements OnInit {
     property: ''
   };
   totalTN = 0 ;
+  listYear = [];
+
   constructor(private ngbModal: NgbModal,
               private title: Title,
               private apiService: ApiService,
@@ -42,8 +46,10 @@ export class ThuNhapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle('Thu nhập');
-
+    const now = new Date().getUTCFullYear();
+     this.listYear = Array(now - (now - 20)).fill('').map((v, idx) => now - idx) as Array<number>;
+     this.title.setTitle('Thu nhập');
+    this.fetch();
   }
 
   openCreate(): void {
@@ -51,6 +57,7 @@ export class ThuNhapComponent implements OnInit {
   }
 
   fetch() {
+    this.totalTN = 0;
     this.apiService.post('/thu-nhap/search', this.tnSearch).subscribe(res => {
        this.tnSearch = res;
        this.listTN = this.tnSearch.data;
@@ -61,9 +68,9 @@ export class ThuNhapComponent implements OnInit {
     })
   }
 
-  openEdit(ns) {
+  openEdit(tn) {
     const modelRef = this.ngbModal.open(ThuNhapEditComponent);
-    modelRef.componentInstance.ns = ns;
+    modelRef.componentInstance.tn = tn;
   }
   onSearch() {
      this.tnSearch.page = 0;
@@ -78,5 +85,13 @@ export class ThuNhapComponent implements OnInit {
       this.toar.error('Xóa thất bại');
     })
   }
+  checkTime(event){
+    this.tnSearch.thang = event.target.value;
+    this.fetch();
+  }
 
+  checkTimeY(event){
+    this.tnSearch.year = event.target.value;
+    this.fetch();
+  }
 }

@@ -1,0 +1,27 @@
+<div class="modal-header" style="background: darkturquoise;">
+  <h4 class="modal-title">Thêm mới loại thông báo</h4>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <form [formGroup]="lTB" (ngSubmit)="onCreate()" style="width: 98%;">
+        <div class="form-group">
+          <label>Tên loại thông báo :</label>
+          <input type="text" class="form-control" placeholder="Nhập vào Tên loại thông báo..." name="name" formControlName="tenloaithongbao">
+          <div class="text-danger" *ngIf="f.tenloaithongbao.errors && (f.tenloaithongbao.touched || f.tenloaithongbao.dirty)">
+            <div *ngIf="f.tenloaithongbao.errors.required">Tên loại thông báo không được bỏ trống!</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Tạo mới" class="btn btn-success">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="close()">Đóng</button>
+</div>

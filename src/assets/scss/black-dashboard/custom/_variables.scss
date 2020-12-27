@@ -62,9 +62,9 @@ $opacity-gray-5:             rgba(222,222,222, .5) !default;
 $opacity-gray-8:             rgba(222,222,222, .8) !default;
 
 
-$opacity-5:                  rgba(255,255,255, .5) !default;
-$opacity-6:                  rgba(255,255,255, .6) !default;
-$opacity-8:                  rgba(255,255,255, .8) !default;
+$opacity-5:                   rgb(36, 28, 20) !default;
+$opacity-6:                   rgb(36, 28, 20) !default;
+$opacity-8: rgb(210, 198, 192) !default;
 
 
 
@@ -96,7 +96,7 @@ $colors: map-merge((
 $default-color-opacity:      rgba(182, 182, 182, .6) !default;
 $orange-color:               #f96332 !default;
 
-$default:       #344675 !default;
+$default: #bcc2c7 !default;
 $primary:       #e14eca !default;
 $secondary:     #f4f5f7 !default;
 $success:       #00f2c3 !default;

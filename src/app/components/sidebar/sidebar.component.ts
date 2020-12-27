@@ -57,6 +57,21 @@ export const ROUTES: RouteInfo[] = [
     rtlTitle: "Ngân sách",
     icon: "icon-bank",
     class: ""
+  },
+
+  {
+    path: "loai-ngan-sach",
+    title: "Loại ngân sách",
+    rtlTitle: "Loại Ngân sách",
+    icon: "icon-money-coins",
+    class: ""
+  },
+  {
+    path: "loai-thong-bao",
+    title: "Loại thông báo",
+    rtlTitle: "Loại thông báo",
+    icon: "icon-wifi",
+    class: ""
   }
   // {
   //   path: "/rtl",

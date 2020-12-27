@@ -28,10 +28,11 @@ export class ThuNhapCreateComponent implements OnInit {
   ngOnInit(): void {
     this.userPro = this.store.getProfileJson();
     this.thuNHap = this.fb.group({
-      loaithuNHap: new FormControl('',[Validators.required]),
+      kihan: new FormControl('',[Validators.required]),
       loaitien: new FormControl('',[Validators.required]),
       mota: new FormControl('',[Validators.required]),
       sotien: new FormControl('',[Validators.required]),
+      ngaytao: new FormControl('',[Validators.required])
     })
   }
 
@@ -43,14 +44,16 @@ export class ThuNhapCreateComponent implements OnInit {
     if (this.thuNHap.valid){
       const cp = {
         idUser: this.userPro.id,
-        loaithuNHap: this.thuNHap.get('loaithuNHap').value,
+        kihan: this.thuNHap.get('kihan').value,
         loaitien: this.thuNHap.get('loaitien').value,
         mota: this.thuNHap.get('mota').value,
         sotien: this.thuNHap.get('sotien').value,
+        ngaytao: this.thuNHap.get('ngaytao').value
       }
-      this.api.post('/chi-phi/add', cp).subscribe(() => {
+      this.api.post('/thu-nhap/add', cp).subscribe(() => {
         this.api.onFilter('create');
         this.toastr.success('Thêm thành công');
+        this.activeModal.dismiss();
       },error =>  {
         this.toastr.error('Thêm thất bại');
       })

@@ -6,6 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {StorageService} from "../../../../share/service/storage.service";
 import {UserProfileModel} from "../../../../share/model/user-profile.model";
 import {ToastrService} from "ngx-toastr";
+import {LoaiNganSach} from "../../../../share/model/loai-ngan-sach";
 
 @Component({
   selector: 'app-chi-phi-create',
@@ -15,6 +16,7 @@ import {ToastrService} from "ngx-toastr";
 export class ChiPhiCreateComponent implements OnInit {
   chiPhi: FormGroup;
   userPro: UserProfileModel;
+  listLNS: LoaiNganSach[];
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -25,9 +27,12 @@ export class ChiPhiCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.api.get('/loai-ngan-sach/all').subscribe(res=> {
+      this.listLNS = res;
+    })
     this.userPro = this.store.getProfileJson();
     this.chiPhi = this.fb.group({
-      loaingansach: new FormControl('',[Validators.required]),
+      idLoaiNganSach: new FormControl('',[Validators.required]),
       loaitien: new FormControl('',[Validators.required]),
       mota: new FormControl('',[Validators.required]),
       sotien: new FormControl('',[Validators.required]),
@@ -42,7 +47,7 @@ export class ChiPhiCreateComponent implements OnInit {
     if (this.chiPhi.valid){
       const cp = {
         idUser: this.userPro.id,
-        loaingansach: this.chiPhi.get('loaingansach').value,
+        idLoaiNganSach: this.chiPhi.get('idLoaiNganSach').value,
         loaitien: this.chiPhi.get('loaitien').value,
         mota: this.chiPhi.get('mota').value,
         sotien: this.chiPhi.get('sotien').value,
@@ -50,6 +55,7 @@ export class ChiPhiCreateComponent implements OnInit {
       this.api.post('/chi-phi/add', cp).subscribe(() => {
         this.api.onFilter('create');
         this.toastr.success('Thêm thành công');
+        this.activeModal.dismiss();
       },error =>  {
          this.toastr.error('Thêm thất bại');
       })

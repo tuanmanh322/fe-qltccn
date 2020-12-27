@@ -1,5 +1,5 @@
 <div class="modal-header" style="background: darkturquoise;">
-  <h4 class="modal-title">Sửa ngân sách</h4>
+  <h4 class="modal-title">Sửa thu nhập</h4>
   <button type="button" class="close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -9,10 +9,10 @@
     <div class="row">
       <form [formGroup]="thuNhapE" (ngSubmit)="onCreate()" style="width: 98%;">
         <div class="form-group">
-          <label>Loại ngân sách :</label>
-          <input type="text" class="form-control" placeholder="Nhập vào loại ngân sách..." name="name" formControlName="loaingansach">
-          <div class="text-danger" *ngIf="f.loaingansach.errors && (f.loaingansach.touched || f.loaingansach.dirty)">
-            <div *ngIf="f.loaingansach.errors.required">Loại ngân sách không được bỏ trống!</div>
+          <label>Số tiền :</label>
+          <input type="number" class="form-control" placeholder="Nhập vào số tiền..." name="sotien" formControlName="sotien">
+          <div class="text-danger" *ngIf="f.sotien.errors && (f.sotien.touched || f.sotien.dirty)">
+            <div *ngIf="f.sotien.errors.required">Số tiền không được bỏ trống!</div>
           </div>
         </div>
         <div class="form-group">
@@ -24,15 +24,23 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Số tiền :</label>
-          <input type="number" class="form-control" placeholder="Nhập vào số tiền..." name="name" formControlName="sotien">
-          <div class="text-danger" *ngIf="f.sotien.errors && (f.sotien.touched || f.sotien.dirty)">
-            <div *ngIf="f.sotien.errors.required">Số tiền không được bỏ trống!</div>
+          <label>Ngày tạo :</label>
+          <input type="date" class="form-control" placeholder="Nhập vào ngày tạo..." name="ngaytao" formControlName="ngaytao">
+          <div class="text-danger" *ngIf="f.ngaytao.errors && (f.ngaytao.touched || f.ngaytao.dirty)">
+            <div *ngIf="f.ngaytao.errors.required">Ngày tạo không được bỏ trống!</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Kỳ hạn:</label>
+          <input type="text" class="form-control" placeholder="Nhập vào kỳ hạn..." name="code" formControlName="kihan">
+          <!--          <small class="small">Ví dụ: ...</small>-->
+          <div class="text-danger" *ngIf="f.kihan.errors && (f.kihan.touched || f.kihan.dirty)">
+            <div *ngIf="f.kihan.errors.required">Kỳ hạn không được bỏ trống!</div>
           </div>
         </div>
         <div class="form-group">
           <label>Mô tả :</label>
-          <input type="text" class="form-control" placeholder="Nhập vào mô tả..." name="description" formControlName="mota">
+          <textarea type="text" class="form-control" placeholder="Nhập vào mô tả..." name="description" formControlName="mota" rows="4"></textarea>
           <div class="text-danger" *ngIf="f.mota.errors && (f.mota.touched || f.mota.dirty)">
             <div *ngIf="f.mota.errors.required">Mô tả không được bỏ trống!</div>
           </div>

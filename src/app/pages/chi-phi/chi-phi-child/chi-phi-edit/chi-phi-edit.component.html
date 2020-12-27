@@ -10,9 +10,11 @@
       <form [formGroup]="chiPhiE" (ngSubmit)="onCreate()" style="width: 98%;">
         <div class="form-group">
           <label>Loại ngân sách :</label>
-          <input type="text" class="form-control" placeholder="Nhập vào loại ngân sách..." name="name" formControlName="loaingansach">
-          <div class="text-danger" *ngIf="f.loaingansach.errors && (f.loaingansach.touched || f.loaingansach.dirty)">
-            <div *ngIf="f.loaingansach.errors.required">Loại ngân sách không được bỏ trống!</div>
+          <select  class="form-control" formControlName="idLoaiNganSach" name="idLoaiNganSach">
+            <option *ngFor="let ca of listLNS" [value]="ca.id">{{ca.tenloaingansach}}</option>
+          </select>
+          <div class="text-danger" *ngIf="f.idLoaiNganSach.errors && (f.idLoaiNganSach.touched || f.idLoaiNganSach.dirty)">
+            <div *ngIf="f.idLoaiNganSach.errors.required">Loại ngân sách không được bỏ trống!</div>
           </div>
         </div>
         <div class="form-group">
@@ -38,7 +40,7 @@
           </div>
         </div>
         <div class="form-group">
-          <input type="submit" value="Tạo mới" class="btn btn-success">
+          <input type="submit" value="Sửa" class="btn btn-success">
         </div>
       </form>
     </div>

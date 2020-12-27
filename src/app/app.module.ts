@@ -18,8 +18,6 @@ import { LoginFormComponent } from './layouts/client-layout/login-form/login-for
 import { RegisterFormComponent } from './layouts/client-layout/register-form/register-form.component';
 import {HttpConfigInterceptor} from "./share/interceptor/http-config.interceptor";
 import {ErrHttpInterceptor} from "./share/interceptor/err-http.interceptor";
-import { ThuNhapCreateComponent } from './pages/thu-nhap/thu-nhap-child/thu-nhap-create/thu-nhap-create.component';
-import { ThuNhapEditComponent } from './pages/thu-nhap/thu-nhap-child/thu-nhap-edit/thu-nhap-edit.component';
 
 @NgModule({
   imports: [
@@ -37,7 +35,7 @@ import { ThuNhapEditComponent } from './pages/thu-nhap/thu-nhap-child/thu-nhap-e
     }),
     ReactiveFormsModule
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, LoginFormComponent, RegisterFormComponent, ThuNhapCreateComponent, ThuNhapEditComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, LoginFormComponent, RegisterFormComponent],
   providers: [
     ApiService,
     {

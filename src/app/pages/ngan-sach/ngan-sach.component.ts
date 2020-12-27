@@ -10,6 +10,7 @@ import {NganSachSearch} from '../../share/model/ngan-sach-search';
 import {Order} from '../../share/model/order';
 import {NganSach} from '../../share/model/ngan-sach';
 import {ToastrService} from 'ngx-toastr';
+import {LoaiNganSach} from "../../share/model/loai-ngan-sach";
 
 @Component({
   selector: 'app-ngan-sach',
@@ -27,8 +28,10 @@ export class NganSachComponent implements OnInit {
     property: '',
     ascending: true
   };
+  listLNS: LoaiNganSach[];
 
   listNS: NganSach[];
+  listYear = [];
   constructor(private ngbModal: NgbModal,
               private title: Title,
               private apiService: ApiService,
@@ -40,7 +43,11 @@ export class NganSachComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const now = new Date().getUTCFullYear();
+    this.listYear = Array(now - (now - 20)).fill('').map((v, idx) => now - idx) as Array<number>;
+
     this.title.setTitle('Ngân sách');
+
     this.fetch();
   }
 
@@ -73,5 +80,13 @@ export class NganSachComponent implements OnInit {
       this.toar.error('Xóa thất bại');
     })
   }
+  checkTime(event){
+    this.nsSearch.thang = event.target.value;
+    this.fetch();
+  }
 
+  checkTimeY(event){
+    this.nsSearch.year = event.target.value;
+    this.fetch();
+  }
 }

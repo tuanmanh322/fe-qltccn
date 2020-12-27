@@ -10,6 +10,8 @@ import { TypographyComponent } from "../../pages/typography/typography.component
 import {ThuNhapComponent} from "../../pages/thu-nhap/thu-nhap.component";
 import {ChiPhiComponent} from "../../pages/chi-phi/chi-phi.component";
 import {NganSachComponent} from "../../pages/ngan-sach/ngan-sach.component";
+import {LoaiNganSachComponent} from "../../pages/loai-ngan-sach/loai-ngan-sach.component";
+import {LoaiThongBaoComponent} from "../../pages/loai-thong-bao/loai-thong-bao.component";
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 
 export const AdminLayoutRoutes: Routes = [
@@ -24,6 +26,8 @@ export const AdminLayoutRoutes: Routes = [
   { path: "thu-nhap", component: ThuNhapComponent },
   { path: "chi-phi", component: ChiPhiComponent },
   { path: "ngan-sach", component: NganSachComponent },
+  { path: "loai-ngan-sach", component: LoaiNganSachComponent },
+  { path: "loai-thong-bao", component: LoaiThongBaoComponent }
 
   // { path: "rtl", component: RtlComponent }
 ];

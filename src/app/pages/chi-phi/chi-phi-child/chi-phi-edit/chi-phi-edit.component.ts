@@ -6,6 +6,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {StorageService} from "../../../../share/service/storage.service";
 import {ToastrService} from "ngx-toastr";
 import {UserProfileModel} from "../../../../share/model/user-profile.model";
+import {ChiPhi} from "../../../../share/model/chi-phi";
+import {LoaiNganSach} from "../../../../share/model/loai-ngan-sach";
 
 @Component({
   selector: 'app-chi-phi-edit',
@@ -14,10 +16,11 @@ import {UserProfileModel} from "../../../../share/model/user-profile.model";
 })
 export class ChiPhiEditComponent implements OnInit {
   @Input()
-  cp: any;
+  cp: ChiPhi;
 
   chiPhiE: FormGroup;
   userPro: UserProfileModel;
+  listLNS: LoaiNganSach[];
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -28,12 +31,15 @@ export class ChiPhiEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.api.get('/loai-ngan-sach/all').subscribe(res=> {
+      this.listLNS = res;
+    })
     this.userPro = this.store.getProfileJson();
     this.chiPhiE = this.fb.group({
-      loaingansach: new FormControl('',[Validators.required]),
-      loaitien: new FormControl('',[Validators.required]),
-      mota: new FormControl('',[Validators.required]),
-      sotien: new FormControl('',[Validators.required]),
+      idLoaiNganSach: new FormControl(this.cp.idLoaiNganSach,[Validators.required]),
+      loaitien: new FormControl(this.cp.loaitien,[Validators.required]),
+      mota: new FormControl(this.cp.mota,[Validators.required]),
+      sotien: new FormControl(this.cp.sotien,[Validators.required]),
     })
   }
 
@@ -44,17 +50,18 @@ export class ChiPhiEditComponent implements OnInit {
   onCreate(){
     if (this.chiPhiE.valid){
       const cp = {
-        idUser: this.userPro.id,
-        loaingansach: this.chiPhiE.get('loaingansach').value,
+        id: this.cp.id,
+        idLoaiNganSach: this.chiPhiE.get('idLoaiNganSach').value,
         loaitien: this.chiPhiE.get('loaitien').value,
         mota: this.chiPhiE.get('mota').value,
         sotien: this.chiPhiE.get('sotien').value,
       }
-      this.api.post('/chi-phi/add', cp).subscribe(() => {
+      this.api.put('/chi-phi/edit', cp).subscribe(() => {
         this.api.onFilter('create');
-        this.toastr.success('Thêm thành công');
+        this.toastr.success('Sửa thành công');
+        this.activeModal.dismiss();
       },error =>  {
-        this.toastr.error('Thêm thất bại');
+        this.toastr.error('Sửa thất bại');
       })
     }
   }

@@ -6,6 +6,7 @@ import {Title} from "@angular/platform-browser";
 import {ApiService} from "../../../../share/service/api.service";
 import {StorageService} from "../../../../share/service/storage.service";
 import {ToastrService} from "ngx-toastr";
+import {LoaiNganSach} from "../../../../share/model/loai-ngan-sach";
 
 @Component({
   selector: 'app-ngan-sach-create',
@@ -13,7 +14,7 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./ngan-sach-create.component.scss']
 })
 export class NganSachCreateComponent implements OnInit {
-
+  listLNS: LoaiNganSach[];
   nganSach: FormGroup;
   userPro: UserProfileModel;
   constructor(
@@ -26,12 +27,15 @@ export class NganSachCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.api.get('/loai-ngan-sach/all').subscribe(res=> {
+      this.listLNS = res;
+    })
     this.userPro = this.store.getProfileJson();
     this.nganSach = this.fb.group({
-      loaingansach: new FormControl('',[Validators.required]),
+      idLoaiNganSach: new FormControl('',[Validators.required]),
       loaitien: new FormControl('',[Validators.required]),
-      mota: new FormControl('',[Validators.required]),
-      sotien: new FormControl('',[Validators.required]),
+      ngaytao: new FormControl('',[Validators.required]),
+      vonglap: new FormControl('',[Validators.required]),
     })
   }
 
@@ -43,14 +47,15 @@ export class NganSachCreateComponent implements OnInit {
     if (this.nganSach.valid){
       const cp = {
         idUser: this.userPro.id,
-        loaingansach: this.nganSach.get('loaingansach').value,
+        idLoaiNganSach: this.nganSach.get('idLoaiNganSach').value,
         loaitien: this.nganSach.get('loaitien').value,
-        mota: this.nganSach.get('mota').value,
-        sotien: this.nganSach.get('sotien').value,
+        ngaytao: this.nganSach.get('ngaytao').value,
+        vonglap: this.nganSach.get('vonglap').value,
       }
-      this.api.post('/chi-phi/add', cp).subscribe(() => {
+      this.api.post('/ngan-sach/add', cp).subscribe(() => {
         this.api.onFilter('create');
         this.toastr.success('Thêm thành công');
+        this.activeModal.dismiss();
       },error =>  {
         this.toastr.error('Thêm thất bại');
       })

@@ -5,11 +5,15 @@ export interface NganSach {
 
    vonglap?: string;
 
-   ngaybatdau?: string;
+   ngaytao?: string;
 
    tenloaingansach?: string;
 
    loaitien?: string;
 
    tenkhachhang?: string;
+
+  idLoaiNganSach?: number;
+
+  sotien?: string;
 }

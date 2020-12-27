@@ -6,6 +6,8 @@ import {Title} from "@angular/platform-browser";
 import {ApiService} from "../../../../share/service/api.service";
 import {StorageService} from "../../../../share/service/storage.service";
 import {ToastrService} from "ngx-toastr";
+import {LoaiNganSach} from "../../../../share/model/loai-ngan-sach";
+import {NganSach} from "../../../../share/model/ngan-sach";
 
 @Component({
   selector: 'app-ngan-sach-edit',
@@ -15,8 +17,8 @@ import {ToastrService} from "ngx-toastr";
 export class NganSachEditComponent implements OnInit {
 
   @Input()
-  ns: any;
-
+  ns: NganSach;
+  listLNS: LoaiNganSach[];
   nganSachE: FormGroup;
   userPro: UserProfileModel;
   constructor(
@@ -29,12 +31,15 @@ export class NganSachEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.api.get('/loai-ngan-sach/all').subscribe(res=> {
+      this.listLNS = res;
+    })
     this.userPro = this.store.getProfileJson();
     this.nganSachE = this.fb.group({
-      loaingansach: new FormControl('',[Validators.required]),
-      loaitien: new FormControl('',[Validators.required]),
-      mota: new FormControl('',[Validators.required]),
-      sotien: new FormControl('',[Validators.required]),
+      idLoaiNganSach: new FormControl(this.ns.idLoaiNganSach,[Validators.required]),
+      loaitien: new FormControl(this.ns.loaitien,[Validators.required]),
+      ngaytao: new FormControl(this.ns.ngaytao,[Validators.required]),
+      vonglap: new FormControl(this.ns.vonglap,[Validators.required]),
     })
   }
 
@@ -45,15 +50,16 @@ export class NganSachEditComponent implements OnInit {
   onCreate(){
     if (this.nganSachE.valid){
       const cp = {
-        idUser: this.userPro.id,
-        loaingansach: this.nganSachE.get('loaingansach').value,
+        id: this.ns.id,
+        idLoaiNganSach: this.nganSachE.get('idLoaiNganSach').value,
         loaitien: this.nganSachE.get('loaitien').value,
-        mota: this.nganSachE.get('mota').value,
-        sotien: this.nganSachE.get('sotien').value,
+        ngaytao: this.nganSachE.get('ngaytao').value,
+        vonglap: this.nganSachE.get('vonglap').value,
       }
-      this.api.post('/chi-phi/add', cp).subscribe(() => {
-        this.api.onFilter('create');
-        this.toastr.success('Thêm thành công');
+      this.api.put('/ngan-sach/edit', cp).subscribe(() => {
+        this.api.onFilter('edit');
+        this.toastr.success('Sửa thành công');
+        this.activeModal.dismiss();
       },error =>  {
         this.toastr.error('Thêm thất bại');
       })

@@ -8,7 +8,7 @@
         </div>
         <div class=" card-body">
           <div class="row">
-            <div class="col-8">
+            <div class="col-5">
                   <div class="form-group">
                     <div class="row">
                       <div class="col-8">
@@ -21,10 +21,33 @@
                   </div>
             </div>
             <div class="col-4">
+              <div class="form-group">
+                <select (change)="checkTime($event)">
+                  <option value=""></option>
+                  <option value="1">Tháng 1</option>
+                  <option value="2">Tháng 2</option>
+                  <option value="3">Tháng 3</option>
+                  <option value="4">Tháng 4</option>
+                  <option value="5">Tháng 5</option>
+                  <option value="6">Tháng 6</option>
+                  <option value="7">Tháng 7</option>
+                  <option value="8">Tháng 8</option>
+                  <option value="9">Tháng 9</option>
+                  <option value="10">Tháng 10</option>
+                  <option value="11">Tháng 11</option>
+                  <option value="12">Tháng 12</option>
+                </select>
+                <select (change)="checkTimeY($event)">
+                  <option value=""></option>
+                  <option value="{{y}}" *ngFor="let y of listYear">{{y}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-3">
               <button class="btn btn-primary float-right" (click)="openCreate()">Thêm mới</button>
             </div>
           </div>
-          <p class="float-right"> Tổng số bản ghi : <span style="color: coral">100</span></p>
+          <p class="float-right"> Tổng số bản ghi : <span style="color: coral">{{tnSearch.totalRecords}}</span></p>
           <table class="table table-striped">
             <thead>
             <tr>
@@ -42,10 +65,10 @@
             <tr *ngFor="let ite of listTN; let i = index">
               <td scope="row">{{i+1}}</td>
               <td>{{ite.tenkhachhang}}</td>
-              <td>{{ite.sotien}}</td>
+              <td>{{ite.sotien | vndTransfer}}</td>
               <td>{{ite.loaitien}}</td>
               <td>{{ite.kihan}}</td>
-              <td >{{ite.ngaytao}}</td>
+              <td >{{ite.ngaytao| localDateTimeV1}}</td>
               <td >{{ite.mota}}</td>
               <td>
                 <div class="form-group">
@@ -56,6 +79,7 @@
             </tr>
             </tbody>
           </table>
+          <p class="float-right"> Tổng số tiền thu nhập : <span style="color: coral">{{totalTN | vndTransfer}} VNĐ</span></p>
           <div style="margin: auto;width: 50%;padding: 10px;">
             <!--            <app-paginator (searchFunction)="fetch()" [searchObject]="categorySearch"></app-paginator>-->
           </div>

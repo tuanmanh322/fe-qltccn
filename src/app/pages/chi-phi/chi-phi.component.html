@@ -8,11 +8,11 @@
         </div>
         <div class=" card-body">
           <div class="row">
-            <div class="col-8">
+            <div class="col-5">
                   <div class="form-group">
               <div class="row">
                 <div class="col-8">
-                  <input type="text" class="form-control" [(ngModel)]="cpSearch.tenloaingansach">
+                  <input type="text" class="form-control" placeholder="Nhập vào loại ngân sách..." [(ngModel)]="cpSearch.tenloaingansach">
                 </div>
                 <div class="col-4">
                   <input type="button" class="btn btn-success" value="Tìm kiếm" (click)="onSearch()">
@@ -21,6 +21,29 @@
             </div>
             </div>
             <div class="col-4">
+              <div class="form-group">
+                <select (change)="checkTime($event)">
+                  <option value=""></option>
+                  <option value="1">Tháng 1</option>
+                  <option value="2">Tháng 2</option>
+                  <option value="3">Tháng 3</option>
+                  <option value="4">Tháng 4</option>
+                  <option value="5">Tháng 5</option>
+                  <option value="6">Tháng 6</option>
+                  <option value="7">Tháng 7</option>
+                  <option value="8">Tháng 8</option>
+                  <option value="9">Tháng 9</option>
+                  <option value="10">Tháng 10</option>
+                  <option value="11">Tháng 11</option>
+                  <option value="12">Tháng 12</option>
+                </select>
+                <select (change)="checkTimeY($event)">
+                  <option value=""></option>
+                  <option value="{{y}}" *ngFor="let y of listYear">{{y}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-3">
               <button class="btn btn-primary float-right" (click)="openCreate()">Thêm mới</button>
             </div>
           </div>
@@ -43,20 +66,20 @@
               <td scope="row">{{i + 1}}</td>
               <td>{{ite.tenkhachhang}}</td>
               <td>{{ite.loaitien}}</td>
-              <td>{{ite.ngaytao}}</td>
-              <td>{{ite.sotien}}</td>
+              <td>{{ite.ngaytao| localDateTimeV1}}</td>
+              <td>{{ite.sotien | vndTransfer}}</td>
               <td>{{ite.tenloaingansach}}</td>
               <td >{{ite.mota}}</td>
               <td>
                 <div class="form-group">
-                  <button class="btn btn-success" (click)="openEdit(null)" >Sửa</button>
+                  <button class="btn btn-success" (click)="openEdit(ite)" >Sửa</button>
                   <button class="btn btn-danger" (click)="delete(ite.id)">Xóa</button>
                 </div>
               </td>
             </tr>
             </tbody>
           </table>
-          <p class="float-right"> Tổng số tiền đã chi : <span style="color: coral">{{totalMoney}}</span></p>
+          <p class="float-right"> Tổng số tiền đã chi : <span style="color: coral">{{totalMoney| vndTransfer}} VNĐ</span></p>
           <div style="margin: auto;width: 50%;padding: 10px;">
             <app-paginator (searchFunction)="fetch()" [searchObject]="cpSearch"></app-paginator>
           </div>
