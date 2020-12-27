@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ADMIN, AUTHORITIES_KEY, CURRENT_USER, ROLE, TOKEN, USER} from "../model/qlttcn.constant";
+import {ADMIN, AUTHORITIES_KEY, CURRENT_USER, DATA_MONTH, ROLE, TOKEN, USER} from "../model/qlttcn.constant";
 import {UserProfileModel} from "../model/user-profile.model";
 
 
@@ -76,5 +76,14 @@ export class StorageService {
     } else {
       return false;
     }
+  }
+
+  setListData(data: any){
+    localStorage.removeItem(DATA_MONTH);
+    localStorage.setItem(DATA_MONTH,data);
+  }
+
+  getDataMonth(){
+    return localStorage.getItem(DATA_MONTH);
   }
 }

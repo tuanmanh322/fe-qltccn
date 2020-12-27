@@ -1,12 +1,17 @@
-import { Component, OnInit } from "@angular/core";
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import Chart from 'chart.js';
 import {Title} from "@angular/platform-browser";
+import {ApiService} from "../../share/service/api.service";
+import {ChiPhi} from "../../share/model/chi-phi";
+import {StorageService} from "../../share/service/storage.service";
+import {fromEvent, Subscription} from "rxjs";
 
 @Component({
   selector: "app-dashboard",
   templateUrl: "dashboard.component.html"
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild('clicktag') clickTag: ElementRef<HTMLElement>;
   public canvas : any;
   public ctx;
   public datasets: any;
@@ -15,13 +20,21 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
   public clicked2: boolean = false;
+  clickedElement: Subscription = new Subscription();
+  listDataMonth = [];
 
   constructor(
-    private title: Title
+    private title: Title,
+    private api: ApiService,
+    private store: StorageService
   ) {}
 
   ngOnInit() {
     this.title.setTitle('Bảng điều khiển');
+
+    this.api.get('/chi-phi/month/' + 2020).subscribe(res=>{
+      this.listDataMonth = res;
+    })
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {
       maintainAspectRatio: false,
       legend: {
@@ -467,8 +480,12 @@ export class DashboardComponent implements OnInit {
     });
 
   }
+  ngAfterViewInit(): void {
+      this.clickedElement = fromEvent(this.clickTag.nativeElement, 'click').subscribe(() => console.log('element clicked'));
+  }
+
   public updateOptions() {
-    this.myChartData.data.datasets[0].data = this.data;
+    this.myChartData.data.datasets[0].data = this.listDataMonth;
     this.myChartData.update();
   }
 }

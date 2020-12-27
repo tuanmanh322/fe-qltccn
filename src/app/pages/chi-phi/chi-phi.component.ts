@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Title} from '@angular/platform-browser';
 import {ApiService} from '../../share/service/api.service';
@@ -8,13 +8,14 @@ import {ChiPhiSearch} from '../../share/model/chi-phi-search';
 import {Order} from '../../share/model/order';
 import {ChiPhi} from '../../share/model/chi-phi';
 import {ToastrService} from 'ngx-toastr';
+import {StorageService} from "../../share/service/storage.service";
 
 @Component({
   selector: 'app-chi-phi',
   templateUrl: './chi-phi.component.html',
   styleUrls: ['./chi-phi.component.scss']
 })
-export class ChiPhiComponent implements OnInit {
+export class ChiPhiComponent implements OnInit, OnDestroy {
   order: Order = {
     ascending: true,
     property: ''
@@ -34,7 +35,8 @@ export class ChiPhiComponent implements OnInit {
     private ngbModal: NgbModal,
     private title: Title,
     private apiService: ApiService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private store: StorageService
   ) {
     this.apiService.onLoad().subscribe(() => {
       this.fetch();
@@ -45,9 +47,14 @@ export class ChiPhiComponent implements OnInit {
     const now = new Date().getUTCFullYear();
     this.listYear = Array(now - (now - 20)).fill('').map((v, idx) => now - idx) as Array<number>;
 
-    this.title.setTitle('Chi phí');
+    this.title.setTitle('Chi tiêu');
     this.fetch();
 
+  }
+  ngOnDestroy(): void {
+    this.apiService.get('/chi-phi/month/' +2020 ).subscribe(res=>{
+      this.store.setListData(res);
+    })
   }
 
   openCreate(): void {

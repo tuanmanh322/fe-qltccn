@@ -18,6 +18,13 @@
           </div>
         </div>
         <div class="form-group">
+          <label>Số tiền :</label>
+          <input type="number" class="form-control" placeholder="Nhập vào số tiền..." name="name" formControlName="sotien">
+          <div class="text-danger" *ngIf="f.sotien.errors && (f.sotien.touched || f.sotien.dirty)">
+            <div *ngIf="f.sotien.errors.required">Số tiền không được bỏ trống!</div>
+          </div>
+        </div>
+        <div class="form-group">
           <label>Loại tiền :</label>
           <input type="text" class="form-control" placeholder="Nhập vào loại tiền..." name="code" formControlName="loaitien">
           <!--          <small class="small">Ví dụ: ...</small>-->
@@ -26,10 +33,10 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Số tiền :</label>
-          <input type="number" class="form-control" placeholder="Nhập vào số tiền..." name="name" formControlName="sotien">
-          <div class="text-danger" *ngIf="f.sotien.errors && (f.sotien.touched || f.sotien.dirty)">
-            <div *ngIf="f.sotien.errors.required">Số tiền không được bỏ trống!</div>
+          <label>Ngày chi :</label>
+          <input type="datetime-local" class="form-control"  name="ngaytao" formControlName="ngaytao">
+          <div class="text-danger" *ngIf="f.ngaytao.errors && (f.ngaytao.touched || f.ngaytao.dirty)">
+            <div *ngIf="f.ngaytao.errors.required">Ngày chi không được bỏ trống!</div>
           </div>
         </div>
         <div class="form-group">

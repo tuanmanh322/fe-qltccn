@@ -40,6 +40,7 @@ export class ChiPhiEditComponent implements OnInit {
       loaitien: new FormControl(this.cp.loaitien,[Validators.required]),
       mota: new FormControl(this.cp.mota,[Validators.required]),
       sotien: new FormControl(this.cp.sotien,[Validators.required]),
+      ngaytao: new FormControl(this.cp.ngaytao,[Validators.required]),
     })
   }
 
@@ -55,7 +56,8 @@ export class ChiPhiEditComponent implements OnInit {
         loaitien: this.chiPhiE.get('loaitien').value,
         mota: this.chiPhiE.get('mota').value,
         sotien: this.chiPhiE.get('sotien').value,
-      }
+        ngaytao: this.chiPhiE.get('ngaytao').value
+      };
       this.api.put('/chi-phi/edit', cp).subscribe(() => {
         this.api.onFilter('create');
         this.toastr.success('Sửa thành công');

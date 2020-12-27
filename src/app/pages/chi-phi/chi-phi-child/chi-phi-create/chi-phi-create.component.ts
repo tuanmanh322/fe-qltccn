@@ -36,6 +36,7 @@ export class ChiPhiCreateComponent implements OnInit {
       loaitien: new FormControl('',[Validators.required]),
       mota: new FormControl('',[Validators.required]),
       sotien: new FormControl('',[Validators.required]),
+      ngaytao: new FormControl('',[Validators.required]),
     })
   }
 
@@ -51,6 +52,8 @@ export class ChiPhiCreateComponent implements OnInit {
         loaitien: this.chiPhi.get('loaitien').value,
         mota: this.chiPhi.get('mota').value,
         sotien: this.chiPhi.get('sotien').value,
+        ngaytao: this.chiPhi.get('ngaytao').value
+
       }
       this.api.post('/chi-phi/add', cp).subscribe(() => {
         this.api.onFilter('create');

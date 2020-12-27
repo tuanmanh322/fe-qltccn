@@ -46,8 +46,8 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: "chi-phi",
-    title: "Chi phí",
-    rtlTitle: "Chi phí",
+    title: "Chi Tiêu",
+    rtlTitle: "Chi Tiêu",
     icon: "icon-cart",
     class: ""
   },
