@@ -4,6 +4,8 @@ import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from "../../share/service/auth.service";
+import {UserProfileModel} from "../../share/model/user-profile.model";
+import {StorageService} from "../../share/service/storage.service";
 
 @Component({
   selector: "app-navbar",
@@ -20,13 +22,14 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public isCollapsed = true;
 
   closeResult: string;
-
+  userPro : UserProfileModel;
   constructor(
     location: Location,
     private element: ElementRef,
     private router: Router,
     private modalService: NgbModal,
     private auth: AuthService,
+    private stora: StorageService
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -43,6 +46,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
      }
    };
   ngOnInit() {
+    this.userPro = this.stora.getProfileJson();
     window.addEventListener("resize", this.updateColor);
     this.listTitles = ROUTES.filter(listTitle => listTitle);
     const navbar: HTMLElement = this.element.nativeElement;
@@ -176,7 +180,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         return this.listTitles[item].title;
       }
     }
-    return "Dashboard";
+    return 'Xin chào ' + this.userPro.tenkhachhang;
   }
 
   open(content) {

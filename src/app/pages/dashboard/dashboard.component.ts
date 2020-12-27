@@ -450,7 +450,7 @@ export class DashboardComponent implements OnInit {
         display: false
       },
       data: {
-        labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
+        labels: ['MON', 'TUE', 'WEB', 'THU', 'FRI', 'SAT'],
         datasets: [{
           label: "Countries",
           fill: true,
