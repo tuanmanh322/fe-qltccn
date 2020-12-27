@@ -17,7 +17,7 @@ export class CustomeGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const isLogin = this.auth.isAuthenticated();
     if (isLogin){
-      this.router.navigate(['']);
+      this.router.navigate(['qltccn']);
       return  false;
     }
     return true;

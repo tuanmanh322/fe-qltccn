@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {ApiService} from "../../../share/service/api.service";
 import {AuthService} from "../../../share/service/auth.service";
@@ -31,17 +31,18 @@ export class LoginFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.authService.isAuthenticated()){
-      this.toastr.error('Bạn đã đăng nhập vào hệ thống rồi');
-      this.router.navigate(['qltccn']);
-      return;
-    }
+    // if (this.authService.isAuthenticated()){
+    //   this.toastr.error('Bạn đã đăng nhập vào hệ thống rồi');
+    //   this.router.navigate(['qltccn']);
+    //   return;
+    // }
     this.title.setTitle('Đăng nhập');
     this.loginForm = this.fb.group({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
   }
+
   onLogin(): void {
 
     const login: LoginModel = {
@@ -57,13 +58,10 @@ export class LoginFormComponent implements OnInit {
         this.toastr.success('Đăng nhập thành công!');
         this.apiService.onFilter('Login');
         this.router.navigate(['qltccn']);
-        setTimeout(() => {
           this.authService.identity(true).then(() => {
             this.eventmanager.broadcast(LOGIN_SUCCESS);
             this.authService.entranceUrl();
-
           });
-        }, 1500)
       }, error => {
         this.loginForm.get('password').reset();
         if (error.status === 401) {

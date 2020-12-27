@@ -9,55 +9,56 @@
         <div class=" card-body">
           <div class="row">
             <div class="col-8">
-              <!--    <div class="form-group">-->
-              <!--      <div class="row">-->
-              <!--        <div class="col-8">-->
-              <!--          <input type="text" class="form-control">-->
-              <!--        </div>-->
-              <!--        <div class="col-4">-->
-              <!--          <input type="button" class="btn btn-success" value="Tìm kiếm">-->
-              <!--        </div>-->
-              <!--      </div>-->
-              <!--    </div>-->
+                  <div class="form-group">
+              <div class="row">
+                <div class="col-8">
+                  <input type="text" class="form-control" [(ngModel)]="cpSearch.tenloaingansach">
+                </div>
+                <div class="col-4">
+                  <input type="button" class="btn btn-success" value="Tìm kiếm" (click)="onSearch()">
+                </div>
+              </div>
+            </div>
             </div>
             <div class="col-4">
               <button class="btn btn-primary float-right" (click)="openCreate()">Thêm mới</button>
             </div>
           </div>
-          <p class="float-right"> Tổng số bản ghi : <span style="color: coral">100</span></p>
+          <p class="float-right"> Tổng số bản ghi : <span style="color: coral">{{cpSearch.totalRecords}}</span></p>
           <table class="table table-striped">
             <thead>
             <tr>
               <th scope="col">TT</th>
-              <th scope="col">Username</th>
-              <th scope="col">Tên</th>
-              <th scope="col">Số điện thoại</th>
-              <th scope="col">Địa chỉ</th>
-              <th scope="col">Trạng thái</th>
-              <th scope="col">Quyền</th>
+              <th scope="col">Khách hàng</th>
+              <th scope="col">Loại tiền</th>
+              <th scope="col">Ngày tạo</th>
+              <th scope="col">Số tiền</th>
+              <th scope="col">Loại ngân sách</th>
+              <th scope="col">Mô tả</th>
               <th scope="col">Hành động</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td scope="row"></td>
-              <td>}</td>
-              <td>}</td>
-              <td>}</td>
-              <td>}</td>
-              <td >Khách</td>
-              <td >Khách</td>
+            <tr *ngFor="let ite of cpList ; let i = index">
+              <td scope="row">{{i + 1}}</td>
+              <td>{{ite.tenkhachhang}}</td>
+              <td>{{ite.loaitien}}</td>
+              <td>{{ite.ngaytao}}</td>
+              <td>{{ite.sotien}}</td>
+              <td>{{ite.tenloaingansach}}</td>
+              <td >{{ite.mota}}</td>
               <td>
                 <div class="form-group">
                   <button class="btn btn-success" (click)="openEdit(null)" >Sửa</button>
-                  <button class="btn btn-danger" >Xóa</button>
+                  <button class="btn btn-danger" (click)="delete(ite.id)">Xóa</button>
                 </div>
               </td>
             </tr>
             </tbody>
           </table>
+          <p class="float-right"> Tổng số tiền đã chi : <span style="color: coral">{{totalMoney}}</span></p>
           <div style="margin: auto;width: 50%;padding: 10px;">
-<!--            <app-paginator (searchFunction)="fetch()" [searchObject]="categorySearch"></app-paginator>-->
+            <app-paginator (searchFunction)="fetch()" [searchObject]="cpSearch"></app-paginator>
           </div>
 
         </div>

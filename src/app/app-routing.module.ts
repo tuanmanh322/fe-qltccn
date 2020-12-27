@@ -1,22 +1,23 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { BrowserModule } from "@angular/platform-browser";
-import { Routes, RouterModule } from "@angular/router";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {BrowserModule} from '@angular/platform-browser';
+import {Routes, RouterModule} from '@angular/router';
 
-import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import {LoginFormComponent} from "./layouts/client-layout/login-form/login-form.component";
-import {RegisterFormComponent} from "./layouts/client-layout/register-form/register-form.component";
-import {CustomeGuard} from "./share/guard/custome.guard";
+import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
+import {LoginFormComponent} from './layouts/client-layout/login-form/login-form.component';
+import {RegisterFormComponent} from './layouts/client-layout/register-form/register-form.component';
+import {CustomeGuard} from './share/guard/custome.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginFormComponent
+    component: LoginFormComponent,
+    canActivate: [CustomeGuard]
   },
   {
     path: 'register',
-    component: RegisterFormComponent
+    component: RegisterFormComponent,
+    canActivate: [CustomeGuard]
   },
   {
     path: 'qltccn',
@@ -25,7 +26,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren:
-          "./layouts/admin-layout/admin-layout.module#AdminLayoutModule"
+          './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
       }
     ]
   },
@@ -41,8 +42,8 @@ const routes: Routes = [
   //   ]
   // },
   {
-    path: "**",
-    redirectTo: ""
+    path: '**',
+    redirectTo: ''
   }
 ];
 
@@ -56,4 +57,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

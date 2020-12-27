@@ -22,21 +22,21 @@ export const ROUTES: RouteInfo[] = [
   //   icon: "icon-atom",
   //   class: ""
   // },
-  {
-    path: "maps",
-    title: "Maps",
-    rtlTitle: "خرائط",
-    icon: "icon-pin",
-    class: "" },
+  // {
+  //   path: "maps",
+  //   title: "Maps",
+  //   rtlTitle: "خرائط",
+  //   icon: "icon-pin",
+  //   class: "" },
 
 
-  {
-    path: "typography",
-    title: "User Profile",
-    rtlTitle: "ملف تعريفي للمستخدم",
-    icon: "icon-single-02",
-    class: ""
-  },
+  // {
+  //   path: "typography",
+  //   title: "User Profile",
+  //   rtlTitle: "ملف تعريفي للمستخدم",
+  //   icon: "icon-single-02",
+  //   class: ""
+  // },
   {
     path: "thu-nhap",
     title: "Thu nhập",
