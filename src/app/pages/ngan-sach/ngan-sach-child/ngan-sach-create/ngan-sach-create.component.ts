@@ -36,6 +36,8 @@ export class NganSachCreateComponent implements OnInit {
       loaitien: new FormControl('',[Validators.required]),
       ngaytao: new FormControl('',[Validators.required]),
       vonglap: new FormControl('',[Validators.required]),
+      sotien: new FormControl('',[Validators.required]),
+
     })
   }
 
@@ -51,6 +53,8 @@ export class NganSachCreateComponent implements OnInit {
         loaitien: this.nganSach.get('loaitien').value,
         ngaytao: this.nganSach.get('ngaytao').value,
         vonglap: this.nganSach.get('vonglap').value,
+        sotien: this.nganSach.get('sotien').value,
+
       }
       this.api.post('/ngan-sach/add', cp).subscribe(() => {
         this.api.onFilter('create');

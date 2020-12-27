@@ -40,6 +40,8 @@ export class NganSachEditComponent implements OnInit {
       loaitien: new FormControl(this.ns.loaitien,[Validators.required]),
       ngaytao: new FormControl(this.ns.ngaytao,[Validators.required]),
       vonglap: new FormControl(this.ns.vonglap,[Validators.required]),
+      sotien: new FormControl(this.ns.sotien,[Validators.required]),
+
     })
   }
 
@@ -55,6 +57,7 @@ export class NganSachEditComponent implements OnInit {
         loaitien: this.nganSachE.get('loaitien').value,
         ngaytao: this.nganSachE.get('ngaytao').value,
         vonglap: this.nganSachE.get('vonglap').value,
+        sotien: this.nganSachE.get('sotien').value,
       }
       this.api.put('/ngan-sach/edit', cp).subscribe(() => {
         this.api.onFilter('edit');

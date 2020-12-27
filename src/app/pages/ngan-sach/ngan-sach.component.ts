@@ -32,6 +32,8 @@ export class NganSachComponent implements OnInit {
 
   listNS: NganSach[];
   listYear = [];
+
+  totalNS = 0;
   constructor(private ngbModal: NgbModal,
               private title: Title,
               private apiService: ApiService,
@@ -56,9 +58,13 @@ export class NganSachComponent implements OnInit {
   }
 
   fetch() {
+    this.totalNS = 0;
     this.apiService.post('/ngan-sach/search', this.nsSearch).subscribe(res => {
       this.nsSearch = res;
       this.listNS = this.nsSearch.data;
+      this.listNS.map(nsa => {
+        this.totalNS = this.totalNS + parseInt(nsa.sotien);
+      })
     })
   }
 
