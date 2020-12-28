@@ -33,6 +33,7 @@ import {ThuNhapEditComponent} from "../../pages/thu-nhap/thu-nhap-child/thu-nhap
 import {LoaiThongBaoCreateComponent} from "../../pages/loai-thong-bao/loai-thong-bao-child/loai-thong-bao-create/loai-thong-bao-create.component";
 import {LoaiNganSachEditComponent} from "../../pages/loai-ngan-sach/loai-ngan-sach-child/loai-ngan-sach-edit/loai-ngan-sach-edit.component";
 import {PipeModule} from "../../share/pipe/pipe.module";
+import {ChartsModule} from "ng2-charts";
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import {PipeModule} from "../../share/pipe/pipe.module";
         ReactiveFormsModule,
         PaginatorModule,
         PipeModule,
+        ChartsModule,
     ],
   declarations: [
     DashboardComponent,

@@ -18,6 +18,7 @@ import { LoginFormComponent } from './layouts/client-layout/login-form/login-for
 import { RegisterFormComponent } from './layouts/client-layout/register-form/register-form.component';
 import {HttpConfigInterceptor} from "./share/interceptor/http-config.interceptor";
 import {ErrHttpInterceptor} from "./share/interceptor/err-http.interceptor";
+import {ChartsModule} from "ng2-charts";
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import {ErrHttpInterceptor} from "./share/interceptor/err-http.interceptor";
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, LoginFormComponent, RegisterFormComponent],
   providers: [

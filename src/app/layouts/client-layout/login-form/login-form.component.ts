@@ -57,7 +57,10 @@ export class LoginFormComponent implements OnInit {
         this.storageSerivce.saveUser(login.username);
         this.toastr.success('Đăng nhập thành công!');
         this.apiService.onFilter('Login');
-        this.router.navigate(['qltccn']);
+        // location.href = '#/qltccn/dashboard';
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+          this.router.navigate(['qltccn']);
+        });
           this.authService.identity(true).then(() => {
             this.eventmanager.broadcast(LOGIN_SUCCESS);
             this.authService.entranceUrl();
