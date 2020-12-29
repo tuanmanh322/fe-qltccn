@@ -18,17 +18,16 @@ export class DashboardComponent implements OnInit {
 
 
   lineChartData: ChartDataSets[] = [
-    { data: [], label: 'Chi tiêu'}
-  ];
-  chiTieuChar = {
-    data: [],
-    label: 'Chi tiêu'
-  }
+    {
+      data: [],
+      label: 'Chi tiêu'
+    },
 
-  nganSachChar = {
-    data: [28, 48, 40, 19, 86, 27, 90, 80, 190, 280, 500, 130],
-    label: 'Ngân sách'
-  };
+
+  ];
+
+
+
   lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
@@ -70,6 +69,9 @@ export class DashboardComponent implements OnInit {
       ],
     },
   };
+  yearPos = 2021;
+
+
 
   constructor(
     private title: Title,
@@ -80,16 +82,31 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.title.setTitle('Bảng điều khiển');
+    this.fetchData(this.yearPos);
+  }
 
-    this.api.get('/chi-phi/month/' + 2020).subscribe(res => {
+  async fetchData(yearY: number){
+    var  nganSach = {
+      data: [],
+      label: 'Ngân sách'
+    }
+    this.api.get('/chi-phi/year/' + yearY).subscribe(res => {
       this.listDataMonth = res;
-      this.chiTieuChar.data = this.listDataMonth;
-      this.lineChartData.forEach(ite => {
-        ite.data = this.listDataMonth
-      });
-      this.lineChartData.push(this.nganSachChar);
-      console.log(this.listDataMonth);
+      this.lineChartData.forEach(ite =>{
+        ite.data = this.listDataMonth;
+      })
+      this.api.get('/ngan-sach/year/' + yearY).subscribe(res => {
+        nganSach.data = res;
+        this.lineChartData.push(nganSach);
+      })
     });
+  }
+
+  onChangeYear(event){
+    this.lineChartData[0].data = [];
+    this.lineChartData.splice(1,1);
+    var year = parseInt(event.target.value);
+    this.fetchData(year);
   }
 
   lineChartColors: Color[] = [

@@ -7,6 +7,7 @@ import {StorageService} from "../../../../share/service/storage.service";
 import {UserProfileModel} from "../../../../share/model/user-profile.model";
 import {ToastrService} from "ngx-toastr";
 import {LoaiNganSach} from "../../../../share/model/loai-ngan-sach";
+import {NganSach} from "../../../../share/model/ngan-sach";
 
 @Component({
   selector: 'app-chi-phi-create',
@@ -17,6 +18,8 @@ export class ChiPhiCreateComponent implements OnInit {
   chiPhi: FormGroup;
   userPro: UserProfileModel;
   listLNS: LoaiNganSach[];
+
+  nsList: NganSach[];
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -53,8 +56,11 @@ export class ChiPhiCreateComponent implements OnInit {
         mota: this.chiPhi.get('mota').value,
         sotien: this.chiPhi.get('sotien').value,
         ngaytao: this.chiPhi.get('ngaytao').value
-
       }
+      var monhCreate = cp.ngaytao.split('-');
+      this.api.get('/ngan-sach/check-full/' + parseInt(monhCreate[1]) + '/' + parseInt(monhCreate[0])).subscribe(res =>{
+        this.nsList = res;
+      });
       this.api.post('/chi-phi/add', cp).subscribe(() => {
         this.api.onFilter('create');
         this.toastr.success('Thêm thành công');
