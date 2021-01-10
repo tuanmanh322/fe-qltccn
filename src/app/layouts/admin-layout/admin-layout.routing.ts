@@ -12,6 +12,7 @@ import {ChiPhiComponent} from "../../pages/chi-phi/chi-phi.component";
 import {NganSachComponent} from "../../pages/ngan-sach/ngan-sach.component";
 import {LoaiNganSachComponent} from "../../pages/loai-ngan-sach/loai-ngan-sach.component";
 import {LoaiThongBaoComponent} from "../../pages/loai-thong-bao/loai-thong-bao.component";
+import {LoaiViComponent} from "../../pages/loai-vi/loai-vi.component";
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 
 export const AdminLayoutRoutes: Routes = [
@@ -27,7 +28,8 @@ export const AdminLayoutRoutes: Routes = [
   { path: "chi-phi", component: ChiPhiComponent },
   { path: "ngan-sach", component: NganSachComponent },
   { path: "loai-ngan-sach", component: LoaiNganSachComponent },
-  { path: "loai-thong-bao", component: LoaiThongBaoComponent }
+  { path: "loai-thong-bao", component: LoaiThongBaoComponent },
+  { path: "loai-vi", component: LoaiViComponent }
 
   // { path: "rtl", component: RtlComponent }
 ];

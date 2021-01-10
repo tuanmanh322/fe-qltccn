@@ -5,6 +5,7 @@ import {Title} from "@angular/platform-browser";
 import {ApiService} from "../../../../share/service/api.service";
 import {StorageService} from "../../../../share/service/storage.service";
 import {ToastrService} from "ngx-toastr";
+import {UserProfileModel} from "../../../../share/model/user-profile.model";
 
 @Component({
   selector: 'app-loai-thong-bao-create',
@@ -12,7 +13,7 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./loai-thong-bao-create.component.scss']
 })
 export class LoaiThongBaoCreateComponent implements OnInit {
-
+  userPRO: UserProfileModel;
   lTB: FormGroup;
   constructor(
     private activeModal: NgbActiveModal,
@@ -24,6 +25,7 @@ export class LoaiThongBaoCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userPRO = this.store.getProfileJson();
     this.lTB = this.fb.group({
       tenloaithongbao: new FormControl('',[Validators.required])
     })
@@ -37,6 +39,7 @@ export class LoaiThongBaoCreateComponent implements OnInit {
     if (this.lTB.valid){
       const lns = {
         tenloaithongbao: this.lTB.get('tenloaithongbao').value,
+        idUser: this.userPRO.id
       }
       this.api.post('/loai-thong-bao/add', lns).subscribe(() => {
         this.api.onFilter('create');

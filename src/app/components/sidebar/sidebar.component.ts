@@ -74,6 +74,13 @@ export const ROUTES: RouteInfo[] = [
     class: ""
   }
   // {
+  //   path: "loai-vi",
+  //   title: "Loại ví",
+  //   rtlTitle: "Loại ví",
+  //   icon: "icon-gift-2",
+  //   class: ""
+  // }
+  // {
   //   path: "/rtl",
   //   title: "RTL Support",
   //   rtlTitle: "ار تي ال",

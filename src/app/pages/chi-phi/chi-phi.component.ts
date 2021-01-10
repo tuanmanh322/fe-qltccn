@@ -58,11 +58,11 @@ export class ChiPhiComponent implements OnInit, OnDestroy {
   }
 
   openCreate(): void {
-    this.ngbModal.open(ChiPhiCreateComponent);
+    const modalrS = this.ngbModal.open(ChiPhiCreateComponent);
+    modalrS.componentInstance.money = this.totalMoney;
   }
 
   fetch() {
-
     this.totalMoney = 0;
     this.apiService.post('/chi-phi/search', this.cpSearch).subscribe(res => {
       this.cpSearch = res;

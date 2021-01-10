@@ -1,20 +1,24 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {LoaiThongBao} from "../../../../share/model/loai-thong-bao";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Title} from "@angular/platform-browser";
 import {ApiService} from "../../../../share/service/api.service";
 import {StorageService} from "../../../../share/service/storage.service";
 import {ToastrService} from "ngx-toastr";
-import {UserProfileModel} from "../../../../share/model/user-profile.model";
+import {LoaiVi} from "../../../../share/model/loai-vi";
 
 @Component({
-  selector: 'app-loai-ngan-sach-create',
-  templateUrl: './loai-ngan-sach-create.component.html',
-  styleUrls: ['./loai-ngan-sach-create.component.scss']
+  selector: 'app-loai-vi-edit',
+  templateUrl: './loai-vi-edit.component.html',
+  styleUrls: ['./loai-vi-edit.component.scss']
 })
-export class LoaiNganSachCreateComponent implements OnInit {
-  userPro: UserProfileModel;
-  lnsF: FormGroup;
+export class LoaiViEditComponent implements OnInit {
+
+  @Input()
+  lv: LoaiVi;
+
+  lvFE: FormGroup;
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -25,9 +29,8 @@ export class LoaiNganSachCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userPro = this.store.getProfileJson();
-    this.lnsF = this.fb.group({
-      tenloaingansach: new FormControl('',[Validators.required])
+    this.lvFE = this.fb.group({
+      tenVi: new FormControl(this.lv.tenVi,[Validators.required])
     })
   }
 
@@ -36,23 +39,24 @@ export class LoaiNganSachCreateComponent implements OnInit {
   }
 
   onCreate(){
-    if (this.lnsF.valid){
+    if (this.lvFE.valid){
       const lns = {
-        tenloaingansach: this.lnsF.get('tenloaingansach').value,
-        idUser: this.userPro.id
+        id: this.lv.id,
+        tenVi: this.lvFE.get('tenVi').value,
       }
-      this.api.post('/loai-ngan-sach/add', lns).subscribe(() => {
+      this.api.put('/loai-vi/edit', lns).subscribe(() => {
         this.api.onFilter('create');
-        this.toastr.success('Thêm thành công');
+        this.toastr.success('Sửa thành công');
         this.activeModal.dismiss();
       },error =>  {
-        this.toastr.error('Thêm thất bại');
+        this.toastr.error('Sửa thất bại');
       })
     }
   }
 
   get f(){
-    return this.lnsF.controls;
+    return this.lvFE.controls;
   }
+
 
 }

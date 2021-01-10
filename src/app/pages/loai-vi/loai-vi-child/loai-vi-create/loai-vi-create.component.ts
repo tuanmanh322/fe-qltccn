@@ -1,20 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {UserProfileModel} from "../../../../share/model/user-profile.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Title} from "@angular/platform-browser";
 import {ApiService} from "../../../../share/service/api.service";
 import {StorageService} from "../../../../share/service/storage.service";
 import {ToastrService} from "ngx-toastr";
-import {UserProfileModel} from "../../../../share/model/user-profile.model";
 
 @Component({
-  selector: 'app-loai-ngan-sach-create',
-  templateUrl: './loai-ngan-sach-create.component.html',
-  styleUrls: ['./loai-ngan-sach-create.component.scss']
+  selector: 'app-loai-vi-create',
+  templateUrl: './loai-vi-create.component.html',
+  styleUrls: ['./loai-vi-create.component.scss']
 })
-export class LoaiNganSachCreateComponent implements OnInit {
-  userPro: UserProfileModel;
-  lnsF: FormGroup;
+export class LoaiViCreateComponent implements OnInit {
+  userPRO: UserProfileModel;
+  lvF: FormGroup;
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -25,9 +25,9 @@ export class LoaiNganSachCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userPro = this.store.getProfileJson();
-    this.lnsF = this.fb.group({
-      tenloaingansach: new FormControl('',[Validators.required])
+    this.userPRO = this.store.getProfileJson();
+    this.lvF = this.fb.group({
+      tenVi: new FormControl('',[Validators.required])
     })
   }
 
@@ -36,12 +36,12 @@ export class LoaiNganSachCreateComponent implements OnInit {
   }
 
   onCreate(){
-    if (this.lnsF.valid){
+    if (this.lvF.valid){
       const lns = {
-        tenloaingansach: this.lnsF.get('tenloaingansach').value,
-        idUser: this.userPro.id
+        tenVi: this.lvF.get('tenVi').value,
+        idUser: this.userPRO.id
       }
-      this.api.post('/loai-ngan-sach/add', lns).subscribe(() => {
+      this.api.post('/loai-vi/add', lns).subscribe(() => {
         this.api.onFilter('create');
         this.toastr.success('Thêm thành công');
         this.activeModal.dismiss();
@@ -52,7 +52,7 @@ export class LoaiNganSachCreateComponent implements OnInit {
   }
 
   get f(){
-    return this.lnsF.controls;
+    return this.lvF.controls;
   }
 
 }

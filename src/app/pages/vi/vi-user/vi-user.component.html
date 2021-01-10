@@ -1,0 +1,39 @@
+<div class="modal-header" style="background: darkturquoise;">
+  <h4 class="modal-title">Thay đổi số dư</h4>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="form-group">
+        <label>Loại ví :</label>
+        <input type="text" class="form-control"   [value]="tenVi" [disabled]="true" >
+      </div>
+      <form [formGroup]="vuF" (ngSubmit)="onCreate()" style="width: 98%;">
+        <div class="form-group">
+          <label>Số tiền :</label>
+          <input type="number" class="form-control" placeholder="Nhập vào số tiền..." name="money" formControlName="money" (change)="getMoney($event)">
+          <div class="text-danger" *ngIf="f.money.errors && (f.money.touched || f.money.dirty)">
+            <div *ngIf="f.money.errors.required">Số tiền không được bỏ trống!</div>
+          </div>
+          <small style="color: red">{{money}}</small>
+        </div>
+        <div class="form-group">
+          <label>Mô tả :</label>
+          <textarea type="text" class="form-control" placeholder="Nhập vào mô tả..." name="description" formControlName="description" rows="4"></textarea>
+          <div class="text-danger" *ngIf="f.description.errors && (f.description.touched || f.description.dirty)">
+            <div *ngIf="f.description.errors.required">Mô tả không được bỏ trống!</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" value="Thay đổi" name="Thay đổi" class="btn btn-success">Thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="close()">Đóng</button>
+</div>
