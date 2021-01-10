@@ -30,6 +30,7 @@
             <tr>
               <th scope="col">TT</th>
               <th scope="col">Loại ngân sách</th>
+              <th scope="col">Hạn mức</th>
               <th scope="col">Hành động</th>
             </tr>
             </thead>
@@ -37,6 +38,7 @@
             <tr *ngFor="let ite of lnsList ; let i = index">
               <td scope="row">{{i + 1}}</td>
               <td>{{ite.tenloaingansach}}</td>
+              <td>{{ite.hanMuc}}</td>
               <td>
                 <div class="form-group">
                   <button class="btn btn-success" (click)="openEdit(ite)" >Sửa</button>

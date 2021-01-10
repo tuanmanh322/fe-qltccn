@@ -31,6 +31,11 @@ export class ChiPhiCreateComponent implements OnInit {
   ChuSo = [" không ", " một ", " hai ", " ba ", " bốn ", " năm ", " sáu ", " bảy ", " tám ", " chín "];
   Tien = ["", " nghìn", " triệu", " tỷ", " nghìn tỷ", " triệu tỷ"];
   soTien = '';
+
+  moneyNS = 0;
+
+  lnsM: LoaiNganSach;
+  isGo = false;
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -113,5 +118,13 @@ export class ChiPhiCreateComponent implements OnInit {
       this.isMax = false;
     }
 
+    this.api.get('/ngan-sach/lns/' + this.chiPhi.get('idLoaiNganSach').value).subscribe(res=>{
+        this.moneyNS = res;
+        this.lnsM = this.listLNS.filter(lns => lns.id === this.chiPhi.get('idLoaiNganSach').value)[0];
+        let percent =  (moneyAdd / this.moneyNS) * 100;
+        if (percent > this.lnsM.hanMuc){
+          this.toastr.warning('Bạn đã vượt quá hạn mức cho phép!');
+        }
+    })
   }
 }

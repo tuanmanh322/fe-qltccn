@@ -130,7 +130,7 @@ export class ApiService {
       KetQua = KetQua.substring(0, KetQua.length - 1);
     }
     KetQua = KetQua.substring(1,2).toUpperCase()+ KetQua.substring(2);
-    return KetQua;//.substring(0, 1);//.toUpperCase();// + KetQua.substring(1);
+    return KetQua + ' đồng';//.substring(0, 1);//.toUpperCase();// + KetQua.substring(1);
   }
   DocSo3ChuSo(soTien: number) {
     var tram;

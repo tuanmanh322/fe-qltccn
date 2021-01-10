@@ -8,6 +8,7 @@ import {ToastrService} from "ngx-toastr";
 import {UserProfileModel} from "../../../../share/model/user-profile.model";
 import {ChiPhi} from "../../../../share/model/chi-phi";
 import {LoaiNganSach} from "../../../../share/model/loai-ngan-sach";
+import {ViModel} from "../../../../share/model/vi.model";
 
 @Component({
   selector: 'app-chi-phi-edit',
@@ -18,9 +19,17 @@ export class ChiPhiEditComponent implements OnInit {
   @Input()
   cp: ChiPhi;
 
+  @Input()
+  money: any;
   chiPhiE: FormGroup;
   userPro: UserProfileModel;
   listLNS: LoaiNganSach[];
+
+  moneyNS = 0;
+  lnsM: LoaiNganSach;
+  isMax = false;
+  viModel: ViModel;
+  soTien = '';
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -33,6 +42,9 @@ export class ChiPhiEditComponent implements OnInit {
   ngOnInit(): void {
     this.api.get('/loai-ngan-sach/all').subscribe(res=> {
       this.listLNS = res;
+    })
+    this.api.get('/vi/detail/1').subscribe(res => {
+      this.viModel = res;
     })
     this.userPro = this.store.getProfileJson();
     this.chiPhiE = this.fb.group({
@@ -70,5 +82,26 @@ export class ChiPhiEditComponent implements OnInit {
 
   get f(){
     return this.chiPhiE.controls;
+  }
+
+  getMoneyEd(event) {
+    let moneyAdd = parseInt(event.target.value) + this.money;
+    let moneyInWallet = parseInt(this.viModel.money);
+    this.soTien = this.api.DocTienBangChu(event.target.value);
+    if (moneyAdd > moneyInWallet) {
+      this.toastr.warning('Số tiền chi tiêu đã vượt quá lượng tiền trong ví');
+      this.isMax = true;
+    } else {
+      this.isMax = false;
+    }
+
+    this.api.get('/ngan-sach/lns/' + this.chiPhiE.get('idLoaiNganSach').value).subscribe(res=>{
+      this.moneyNS = res;
+      this.lnsM = this.listLNS.filter(lns => lns.id === this.chiPhiE.get('idLoaiNganSach').value)[0];
+      let percent =  (moneyAdd / this.moneyNS) * 100;
+      if (percent > this.lnsM.hanMuc){
+        this.toastr.warning('Bạn đã vượt quá hạn mức cho phép!');
+      }
+    })
   }
 }

@@ -10,9 +10,17 @@
       <form [formGroup]="lnsFEE" (ngSubmit)="onCreate()" style="width: 98%;">
         <div class="form-group">
           <label>Tên loại ngân sách :</label>
-          <input type="text" class="form-control" placeholder="Nhập vào Tên loại ngân sách..." name="name" formControlName="tenloaingansach">
+          <input type="text" class="form-control" placeholder="Nhập vào Tên loại ngân sách..." name="tenloaingansach" formControlName="tenloaingansach">
           <div class="text-danger" *ngIf="f.tenloaingansach.errors && (f.tenloaingansach.touched || f.tenloaingansach.dirty)">
             <div *ngIf="f.tenloaingansach.errors.required">Tên loại ngân sách không được bỏ trống!</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Hạn mức :</label>
+          <input type="text" class="form-control" placeholder="Nhập vào Tên loại ngân sách..." name="hanmuc" formControlName="hanmuc" (change)="checkHM($event)">
+          <div class="text-danger" *ngIf="f.hanmuc.errors && (f.hanmuc.touched || f.hanmuc.dirty)">
+            <div *ngIf="f.hanmuc.errors.required">Hạn mức không được bỏ trống!</div>
+            <div *ngIf="f.hanmuc.errors.pattern">Hạn mức là số!</div>
           </div>
         </div>
         <div class="form-group">

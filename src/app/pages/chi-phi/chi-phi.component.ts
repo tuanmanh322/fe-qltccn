@@ -77,6 +77,7 @@ export class ChiPhiComponent implements OnInit, OnDestroy {
   openEdit(cp) {
     const modelRef = this.ngbModal.open(ChiPhiEditComponent);
     modelRef.componentInstance.cp = cp;
+    modelRef.componentInstance.money = this.totalMoney;
   }
 
   onSearch(){

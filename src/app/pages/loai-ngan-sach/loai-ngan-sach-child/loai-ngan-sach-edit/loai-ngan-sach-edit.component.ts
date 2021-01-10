@@ -28,7 +28,8 @@ export class LoaiNganSachEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.lnsFEE = this.fb.group({
-      tenloaingansach: new FormControl(this.lns.tenloaingansach,[Validators.required])
+      tenloaingansach: new FormControl(this.lns.tenloaingansach,[Validators.required]),
+      hanmuc: new FormControl(this.lns.hanMuc,[Validators.required,Validators.pattern('[0-9]*')])
     })
   }
 
@@ -41,6 +42,7 @@ export class LoaiNganSachEditComponent implements OnInit {
       const lns = {
         id: this.lns.id,
         tenloaingansach: this.lnsFEE.get('tenloaingansach').value,
+        hanMuc: this.lnsFEE.get('hanmuc').value
       }
       this.api.put('/loai-ngan-sach/edit', lns).subscribe(() => {
         this.api.onFilter('create');
@@ -51,7 +53,12 @@ export class LoaiNganSachEditComponent implements OnInit {
       })
     }
   }
-
+  checkHM(event){
+    let hm = parseInt(event.target.value);
+    if (hm > 100 || hm <= 0){
+      this.toastr.warning('Hạn mức không hợp lệ!');
+    }
+  }
   get f(){
     return this.lnsFEE.controls;
   }

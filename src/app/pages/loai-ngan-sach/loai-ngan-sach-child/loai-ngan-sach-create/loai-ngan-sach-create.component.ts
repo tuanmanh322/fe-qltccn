@@ -27,7 +27,8 @@ export class LoaiNganSachCreateComponent implements OnInit {
   ngOnInit(): void {
     this.userPro = this.store.getProfileJson();
     this.lnsF = this.fb.group({
-      tenloaingansach: new FormControl('',[Validators.required])
+      tenloaingansach: new FormControl('',[Validators.required]),
+      hanmuc: new FormControl('',[Validators.required]),
     })
   }
 
@@ -39,7 +40,8 @@ export class LoaiNganSachCreateComponent implements OnInit {
     if (this.lnsF.valid){
       const lns = {
         tenloaingansach: this.lnsF.get('tenloaingansach').value,
-        idUser: this.userPro.id
+        idUser: this.userPro.id,
+        hanMuc: this.lnsF.get('hanmuc').value
       }
       this.api.post('/loai-ngan-sach/add', lns).subscribe(() => {
         this.api.onFilter('create');
@@ -55,4 +57,10 @@ export class LoaiNganSachCreateComponent implements OnInit {
     return this.lnsF.controls;
   }
 
+  checkHMC(event){
+    let hm = parseInt(event.target.value);
+    if (hm > 100 || hm <= 0){
+      this.toastr.warning('Hạn mức không hợp lệ!');
+    }
+  }
 }
