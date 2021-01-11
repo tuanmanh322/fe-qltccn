@@ -15,7 +15,7 @@ import {LoaiNganSach} from "../../../../share/model/loai-ngan-sach";
 export class LoaiNganSachEditComponent implements OnInit {
   @Input()
   lns: LoaiNganSach;
-
+  isMaxHm = false;
   lnsFEE: FormGroup;
   constructor(
     private activeModal: NgbActiveModal,
@@ -38,7 +38,7 @@ export class LoaiNganSachEditComponent implements OnInit {
   }
 
   onCreate(){
-    if (this.lnsFEE.valid){
+    if (this.lnsFEE.valid && this.isMaxHm === false){
       const lns = {
         id: this.lns.id,
         tenloaingansach: this.lnsFEE.get('tenloaingansach').value,
@@ -57,6 +57,7 @@ export class LoaiNganSachEditComponent implements OnInit {
     let hm = parseInt(event.target.value);
     if (hm > 100 || hm <= 0){
       this.toastr.warning('Hạn mức không hợp lệ!');
+      this.isMaxHm =true;
     }
   }
   get f(){

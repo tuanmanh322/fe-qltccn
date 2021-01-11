@@ -15,6 +15,7 @@ import {UserProfileModel} from "../../../../share/model/user-profile.model";
 export class LoaiNganSachCreateComponent implements OnInit {
   userPro: UserProfileModel;
   lnsF: FormGroup;
+  isMaxHm = false;
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -37,7 +38,7 @@ export class LoaiNganSachCreateComponent implements OnInit {
   }
 
   onCreate(){
-    if (this.lnsF.valid){
+    if (this.lnsF.valid && !this.isMaxHm){
       const lns = {
         tenloaingansach: this.lnsF.get('tenloaingansach').value,
         idUser: this.userPro.id,
@@ -61,6 +62,7 @@ export class LoaiNganSachCreateComponent implements OnInit {
     let hm = parseInt(event.target.value);
     if (hm > 100 || hm <= 0){
       this.toastr.warning('Hạn mức không hợp lệ!');
+      this.isMaxHm = true;
     }
   }
 }

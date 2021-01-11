@@ -36,6 +36,7 @@ import {LoaiViComponent} from "../../pages/loai-vi/loai-vi.component";
 import {LoaiViCreateComponent} from "../../pages/loai-vi/loai-vi-child/loai-vi-create/loai-vi-create.component";
 import {LoaiViEditComponent} from "../../pages/loai-vi/loai-vi-child/loai-vi-edit/loai-vi-edit.component";
 import {MoneyReadDirective} from "../../share/directive/money-read.directive";
+import {NotificationAlwaysComponent} from "../../pages/notification-always/notification-always.component";
 
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 
@@ -74,7 +75,8 @@ import {MoneyReadDirective} from "../../share/directive/money-read.directive";
     LoaiThongBaoComponent,
     LoaiThongBaoCreateComponent,
     LoaiThongBaoEditComponent,
-    ViUserComponent, LoaiViComponent, LoaiViCreateComponent, LoaiViEditComponent,MoneyReadDirective
+    ViUserComponent, LoaiViComponent, LoaiViCreateComponent, LoaiViEditComponent,MoneyReadDirective,
+    NotificationAlwaysComponent
     // RtlComponent
   ]
 })

@@ -14,6 +14,8 @@ export class ApiService {
   Tien = ["", " nghìn", " triệu", " tỷ", " nghìn tỷ", " triệu tỷ"];
 
   public sendParams: Subject<any> = new Subject<any>();
+
+  public paramNoti: Subject<any> = new Subject<any>();
   constructor(
     private http: HttpClient
   ) {
@@ -179,4 +181,11 @@ export class ApiService {
     return new Date(year, month, 0).getDate();
   }
 
+  sendNoti(noti: string){
+    this.paramNoti.next(noti);
+  }
+
+  watchNoti(): Observable<any>{
+    return this.paramNoti.asObservable();
+  }
 }

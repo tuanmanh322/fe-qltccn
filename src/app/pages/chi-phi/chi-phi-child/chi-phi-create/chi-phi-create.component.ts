@@ -85,6 +85,7 @@ export class ChiPhiCreateComponent implements OnInit {
       this.api.post('/chi-phi/add', cp).subscribe(() => {
         this.api.onFilter('create');
         this.toastr.success('Thêm thành công');
+        this.api.sendNoti('watch');
         this.activeModal.dismiss();
       }, error => {
         this.toastr.error('Thêm thất bại');
@@ -120,9 +121,9 @@ export class ChiPhiCreateComponent implements OnInit {
 
     this.api.get('/ngan-sach/lns/' + this.chiPhi.get('idLoaiNganSach').value).subscribe(res=>{
         this.moneyNS = res;
-        this.lnsM = this.listLNS.filter(lns => lns.id === this.chiPhi.get('idLoaiNganSach').value)[0];
+        var loaiNganSachA = this.listLNS.filter(lns => lns.id === parseInt(this.chiPhi.get('idLoaiNganSach').value))[0];
         let percent =  (moneyAdd / this.moneyNS) * 100;
-        if (percent > this.lnsM.hanMuc){
+        if (percent > loaiNganSachA.hanMuc){
           this.toastr.warning('Bạn đã vượt quá hạn mức cho phép!');
         }
     })

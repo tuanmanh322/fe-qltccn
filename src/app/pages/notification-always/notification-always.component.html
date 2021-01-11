@@ -1,0 +1,26 @@
+<div class="modal-header" style="background: darkturquoise;">
+  <h4 class="modal-title">Xin chào <span style="color: orangered!important;">{{userModel.tenkhachhang}}</span></h4>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" style="background-color: lavenderblush;">
+  <div class="container">
+    <div class="modal-dialog" role="document" >
+      <div class="modal-content modal-col-red" style="background-color: cyan!important;">
+        <div class="modal-header">
+          <h4 class="modal-title" id="defaultModalLabel">Thông báo</h4>
+        </div>
+        <div class="modal-body">
+           {{title}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link waves-effect" (click)="moveCP()">Ghi chép nào!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="close()">Đóng</button>
+</div>
