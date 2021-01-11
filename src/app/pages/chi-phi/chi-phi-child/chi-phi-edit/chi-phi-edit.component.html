@@ -30,7 +30,11 @@
         </div>
         <div class="form-group">
           <label>Loại tiền :</label>
-          <input type="text" class="form-control" placeholder="Nhập vào loại tiền..." name="code" formControlName="loaitien">
+          <select class="form-control" name="code" formControlName="loaitien">
+            <option value="VNĐ">VNĐ</option>
+            <option value="USD">USD</option>
+          </select>
+          <!--          <input type="text" class="form-control" placeholder="Nhập vào loại tiền..." name="code" formControlName="loaitien">-->
           <!--          <small class="small">Ví dụ: ...</small>-->
           <div class="text-danger" *ngIf="f.loaitien.errors && (f.loaitien.touched || f.loaitien.dirty)">
             <div *ngIf="f.loaitien.errors.required">Loại tiền không được bỏ trống!</div>

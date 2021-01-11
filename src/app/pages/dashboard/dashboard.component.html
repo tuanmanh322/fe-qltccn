@@ -134,9 +134,9 @@
                   <canvas baseChart width="800px" height="200px"
                           [datasets]="lineChartDataTN"
                           [labels]="lineChartLabelTNs"
-                          [options]="pieChartOptions"
-                          [colors]="pieChartColors"
-                          [legend]="lineChartLegend"
+                          [options]="lineChartOptionTNs"
+                          [colors]="lineChartColorsTN"
+                          [legend]="lineChartTypeSEC"
                           [chartType]="lineChartTypeSEC"
                           [plugins]="lineChartPlugins"
                           (chartHover)="chartHovered($event)"
@@ -150,9 +150,12 @@
               <div class=" card card-chart">
                 <div class=" card-header">
                   <div class=" row">
-                    <div class=" col-sm-5 text-left">
+                    <div class=" col-sm-6 text-left">
                       <!--                      <h5 class=" card-category">Tổng quan</h5>-->
                       <h2 class=" card-title">Chi tiết chi tiêu theo ngân sách(VNĐ)</h2>
+                    </div>
+                    <div class="col-sm-2">
+
                     </div>
                     <div class=" col-sm-2 text-right">
                       <div class="form-group">
@@ -194,24 +197,24 @@
                         </select>
                       </div>
                     </div>
-                    <div class=" col-sm-2 text-right">
-                      <div class="form-group">
-                        <label>Loại ngân sách</label>
-                        <select class="form-control float-right" (change)="onChangeLoaiNS($event)">
-                          <option value="{{ite.id}}" *ngFor="let ite of loaiNS">{{ite.tenloaingansach}}</option>
-                        </select>
-                      </div>
-                    </div>
+<!--                    <div class=" col-sm-2 text-right">-->
+<!--                      <div class="form-group">-->
+<!--                        <label>Loại ngân sách</label>-->
+<!--                        <select class="form-control float-right" (change)="onChangeLoaiNS($event)">-->
+<!--                          <option value="{{ite.id}}" *ngFor="let ite of loaiNS">{{ite.tenloaingansach}}</option>-->
+<!--                        </select>-->
+<!--                      </div>-->
+<!--                    </div>-->
                   </div>
                 </div>
                 <div class=" card-body">
                   <canvas baseChart width="800px" height="200px"
                           [datasets]="lineChartDataCTANDNS"
                           [labels]="lineChartLabelCTANDNSs"
-                          [options]="lineChartOptionCTANDNSs"
+                          [options]="barChartOptions"
                           [colors]="lineChartColors"
                           [legend]="lineChartLegend"
-                          [chartType]="lineChartType"
+                          [chartType]="barChartType"
                           [plugins]="lineChartPlugins"
                           (chartHover)="chartHovered($event)"
                           (chartClick)="chartClicked($event)"></canvas>

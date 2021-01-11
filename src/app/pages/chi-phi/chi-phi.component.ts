@@ -9,6 +9,7 @@ import {Order} from '../../share/model/order';
 import {ChiPhi} from '../../share/model/chi-phi';
 import {ToastrService} from 'ngx-toastr';
 import {StorageService} from "../../share/service/storage.service";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-chi-phi',
@@ -30,7 +31,51 @@ export class ChiPhiComponent implements OnInit, OnDestroy {
   };
   totalMoney = 0;
   cpList: ChiPhi[];
-  listYear =[];
+  yearNow =0;
+  monthNow = 0;
+  listMonth = [
+    {
+      value: 1,
+      name: 'Tháng 1'
+    },
+    {
+      value: 2,
+      name: 'Tháng 2'
+    }, {
+      value: 3,
+      name: 'Tháng 3'
+    }, {
+      value: 4,
+      name: 'Tháng 4'
+    }, {
+      value: 5,
+      name: 'Tháng 5'
+    }, {
+      value: 6,
+      name: 'Tháng 6'
+    }, {
+      value: 7,
+      name: 'Tháng 7'
+    },
+    {
+      value: 8,
+      name: 'Tháng 8'
+    },{
+      value: 9,
+      name: 'Tháng 9'
+    },{
+      value: 10,
+      name: 'Tháng 10'
+    },{
+      value: 11,
+      name: 'Tháng 11'
+    },{
+      value: 12,
+      name: 'Tháng 12'
+    },
+  ];
+
+  listYear = [];
   constructor(
     private ngbModal: NgbModal,
     private title: Title,
@@ -46,8 +91,13 @@ export class ChiPhiComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const now = new Date().getUTCFullYear();
     this.listYear = Array(now - (now - 20)).fill('').map((v, idx) => now - idx) as Array<number>;
+    let today = new Date();
+    this.monthNow = today.getMonth()+1;
+    this.yearNow = today.getFullYear();
 
     this.title.setTitle('Chi tiêu');
+    this.cpSearch.year = '' + this.yearNow;
+    this.cpSearch.thang = '' + this.monthNow;
     this.fetch();
 
   }
@@ -95,11 +145,13 @@ export class ChiPhiComponent implements OnInit, OnDestroy {
   }
   checkTime(event){
     this.cpSearch.thang = event.target.value;
+    this.monthNow = parseInt( event.target.value);
     this.fetch();
   }
 
   checkTimeY(event){
     this.cpSearch.year = event.target.value;
+    this.yearNow = parseInt( event.target.value);
     this.fetch();
   }
 }

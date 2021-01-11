@@ -233,6 +233,20 @@ export class DashboardComponent implements OnInit {
       ]
     }
   };
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { xAxes: [{}], yAxes: [{}] },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+
+
   ngOnInit() {
     this.title.setTitle('Bảng điều khiển');
     this.totalDay = this.api.totalDayInMonth(this.startYear,this.startMonth);
@@ -311,21 +325,25 @@ export class DashboardComponent implements OnInit {
   }
 
   getThuNhapAndNs(month: number, year: number, idlns: number){
+    var nganSach = {
+      data: [],
+      label: 'Ngân sách'
+    }
     this.totalDay = this.api.totalDayInMonth(this.startYear,this.startMonth);
     this.lineChartDataCTANDNS.forEach(it =>{
       it.data.length = 0;
       it.data = [];
     });
+    this.lineChartDataCTANDNS.splice(1, 1);
     this.fetchLabelDays(this.totalDay);
-    this.api.get('/chi-phi/show/' + month + '/' + year + '/' + idlns).subscribe(res=>{
+    this.api.get('/chi-phi/show/' + month + '/' + year ).subscribe(res=>{
       this.listDataChiTieuFinal = res;
       this.lineChartDataCTANDNS[0].data  = res;
+      this.api.get('/ngan-sach/show/' + month + '/' + year).subscribe(res => {
+        nganSach.data = res;
+        this.lineChartDataCTANDNS.push(nganSach);
+      })
     })
-  }
-
-  onChangeLoaiNS(event) {
-    this.startIdLNS = parseInt(event.target.value);
-    this.getThuNhapAndNs(this.startMonth,this.startYear, this.startIdLNS);
   }
 
   onChangeMonthLoaiNS(event) {
@@ -411,8 +429,8 @@ export class DashboardComponent implements OnInit {
 
   public lineChartLegend = true;
   public lineChartType: ChartType = 'line';
-  public lineChartTypeSEC: ChartType = 'pie';
-  public lineChartTypeFinal: ChartType = 'line';
+  public lineChartTypeSEC: ChartType = 'line';
+  public barChartType: ChartType = 'bar';
   public lineChartPlugins = [pluginAnnotations];
 
   @ViewChild(BaseChartDirective, {static: true}) chart: BaseChartDirective;
