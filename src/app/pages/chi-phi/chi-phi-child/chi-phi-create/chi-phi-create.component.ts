@@ -36,6 +36,7 @@ export class ChiPhiCreateComponent implements OnInit {
 
   lnsM: LoaiNganSach;
   isGo = false;
+  isNavigate = false;
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -68,8 +69,7 @@ export class ChiPhiCreateComponent implements OnInit {
   }
 
   onCreate() {
-
-    if (this.chiPhi.valid && this.isMax === false) {
+    if (this.chiPhi.valid && this.isMax === false && this.isNavigate ===  false) {
       const cp = {
         idUser: this.userPro.id,
         idLoaiNganSach: this.chiPhi.get('idLoaiNganSach').value,
@@ -109,6 +109,9 @@ export class ChiPhiCreateComponent implements OnInit {
   }
 
   getMoney(event) {
+    if (parseInt(event.target.value) < 0){
+      this.isNavigate= true;
+    }
     let moneyAdd = parseInt(event.target.value) + this.money;
     let moneyInWallet = parseInt(this.viModel.money);
     this.soTien = this.api.DocTienBangChu(event.target.value);

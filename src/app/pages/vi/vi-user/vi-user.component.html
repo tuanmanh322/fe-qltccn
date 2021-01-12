@@ -14,9 +14,12 @@
       <form [formGroup]="vuF" (ngSubmit)="onCreate()" style="width: 98%;">
         <div class="form-group">
           <label>Số tiền :</label>
-          <input type="number" class="form-control" placeholder="Nhập vào số tiền..." name="money" formControlName="money" (change)="getMoney($event)">
+          <input min="0" type="number" class="form-control" placeholder="Nhập vào số tiền..." name="money" formControlName="money" (input)="getMoney($event)">
           <div class="text-danger" *ngIf="f.money.errors && (f.money.touched || f.money.dirty)">
             <div *ngIf="f.money.errors.required">Số tiền không được bỏ trống!</div>
+          </div>
+          <div class="text-danger" *ngIf="isNavigate">
+            Số tiền nhập vào không hợp lệ
           </div>
           <small style="color: red">{{money}}</small>
         </div>

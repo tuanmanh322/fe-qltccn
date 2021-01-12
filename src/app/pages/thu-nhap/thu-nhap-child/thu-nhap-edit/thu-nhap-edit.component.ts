@@ -20,6 +20,9 @@ export class ThuNhapEditComponent implements OnInit {
 
   thuNhapE: FormGroup;
   userPro: UserProfileModel;
+
+  money = '';
+  isNavigate = false;
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -45,7 +48,7 @@ export class ThuNhapEditComponent implements OnInit {
   }
 
   onCreate(){
-    if (this.thuNhapE.valid){
+    if (this.thuNhapE.valid && this.isNavigate === false){
       const cp = {
         id: this.tn.id,
         kihan: this.thuNhapE.get('kihan').value,
@@ -66,5 +69,15 @@ export class ThuNhapEditComponent implements OnInit {
 
   get f(){
     return this.thuNhapE.controls;
+  }
+
+  getMoney(event){
+    let mo = parseInt(event.target.value);
+    this.money = this.api.DocTienBangChu(mo);
+    if (mo<0){
+      this.isNavigate = true;
+    }else {
+      this.isNavigate = false;
+    }
   }
 }

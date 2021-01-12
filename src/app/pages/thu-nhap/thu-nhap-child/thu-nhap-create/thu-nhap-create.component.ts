@@ -16,6 +16,8 @@ export class ThuNhapCreateComponent implements OnInit {
 
   thuNHap: FormGroup;
   userPro: UserProfileModel;
+  money = '';
+  isNavigate = false;
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -41,7 +43,7 @@ export class ThuNhapCreateComponent implements OnInit {
   }
 
   onCreate(){
-    if (this.thuNHap.valid){
+    if (this.thuNHap.valid && this.isNavigate === false){
       const cp = {
         idUser: this.userPro.id,
         kihan: this.thuNHap.get('kihan').value,
@@ -64,4 +66,13 @@ export class ThuNhapCreateComponent implements OnInit {
     return this.thuNHap.controls;
   }
 
+  getMoney(event){
+    let mo = parseInt(event.target.value);
+    this.money = this.api.DocTienBangChu(mo);
+    if (mo<0){
+      this.isNavigate = true;
+    }else {
+      this.isNavigate = false;
+    }
+  }
 }

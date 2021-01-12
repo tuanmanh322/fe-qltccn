@@ -30,6 +30,7 @@ export class ChiPhiEditComponent implements OnInit {
   isMax = false;
   viModel: ViModel;
   soTien = '';
+  isNavigate = false;
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -61,7 +62,7 @@ export class ChiPhiEditComponent implements OnInit {
   }
 
   onCreate(){
-    if (this.chiPhiE.valid){
+    if (this.chiPhiE.valid && this.isNavigate ===  false && this.isMax ===  false){
       const cp = {
         id: this.cp.id,
         idLoaiNganSach: this.chiPhiE.get('idLoaiNganSach').value,
@@ -85,6 +86,9 @@ export class ChiPhiEditComponent implements OnInit {
   }
 
   getMoneyEd(event) {
+    if (parseInt(event.target.value) < 0){
+      this.isNavigate= true;
+    }
     let moneyAdd = parseInt(event.target.value) + this.money;
     let moneyInWallet = parseInt(this.viModel.money);
     this.soTien = this.api.DocTienBangChu(event.target.value);

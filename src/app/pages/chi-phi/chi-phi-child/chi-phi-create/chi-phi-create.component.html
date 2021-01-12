@@ -18,12 +18,15 @@
         </div>
         <div class="form-group">
           <label>Số tiền :</label>
-          <input type="number" class="form-control" placeholder="Nhập vào số tiền..." name="name" formControlName="sotien" (change)="getMoney($event)">
+          <input min="0" type="number" class="form-control" placeholder="Nhập vào số tiền..." name="name" formControlName="sotien" (input)="getMoney($event)">
           <div class="text-danger" *ngIf="f.sotien.errors && (f.sotien.touched || f.sotien.dirty)">
             <div *ngIf="f.sotien.errors.required">Số tiền không được bỏ trống!</div>
           </div>
           <div *ngIf="isMax" class="text-danger">
             Số tiền đã vượt ngưỡng cho phép
+          </div>
+          <div *ngIf="isNavigate" class="text-danger">
+            Số tiền không hợp lệ
           </div>
           <small style="color: red">{{soTien}}</small>
         </div>

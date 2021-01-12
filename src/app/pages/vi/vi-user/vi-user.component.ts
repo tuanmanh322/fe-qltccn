@@ -26,6 +26,8 @@ export class ViUserComponent implements OnInit {
   listLV: LoaiVi;
   tenVi = '';
   money = '';
+
+  isNavigate =false;
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -54,7 +56,7 @@ export class ViUserComponent implements OnInit {
   }
 
   onCreate() {
-    if (this.vuF.valid) {
+    if (this.vuF.valid && this.isNavigate === false) {
       const cp = {
         id: this.viModel.id,
         idLoaiVi: this.viModel.idLoaiVi,
@@ -75,7 +77,14 @@ export class ViUserComponent implements OnInit {
     return this.vuF.controls;
   }
   getMoney(event){
-   this.money = this.api.DocTienBangChu(event.target.value);
+   let mo = parseInt(event.target.value);
+    this.money = this.api.DocTienBangChu(mo);
+    if (mo<0){
+      this.isNavigate = true;
+    }else {
+      this.isNavigate = false;
+    }
+
   }
 
 }

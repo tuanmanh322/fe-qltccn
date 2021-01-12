@@ -256,11 +256,11 @@ export class DashboardComponent implements OnInit {
     this.fetchData(this.yearPos);
     this.getVi(this.tabShow);
     this.getThuNhap(this.yearTN);
-    this.api.get('/loai-ngan-sach/all-by').subscribe(res=> {
-      this.loaiNS = res;
-      this.startIdLNS = this.loaiNS[0].id;
-      this.getThuNhapAndNs(this.startMonth,this.startYear, this.startIdLNS);
-    })
+    // this.api.get('/loai-ngan-sach/all-by').subscribe(res=> {
+    //   this.loaiNS = res;
+    //   this.startIdLNS = this.loaiNS[0].id;
+    //   this.getThuNhapAndNs(this.startMonth,this.startYear, this.startIdLNS);
+    // })
   }
   getVi(tab: number){
     this.api.get('/vi/detail/' + this.tabShow).subscribe(v =>{

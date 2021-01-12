@@ -17,6 +17,9 @@ export class NganSachCreateComponent implements OnInit {
   listLNS: LoaiNganSach[];
   nganSach: FormGroup;
   userPro: UserProfileModel;
+
+  isNavigate= false;
+  money = '';
   constructor(
     private activeModal: NgbActiveModal,
     private title: Title,
@@ -46,7 +49,7 @@ export class NganSachCreateComponent implements OnInit {
   }
 
   onCreate(){
-    if (this.nganSach.valid){
+    if (this.nganSach.valid && this.isNavigate === false){
       const cp = {
         idUser: this.userPro.id,
         idLoaiNganSach: this.nganSach.get('idLoaiNganSach').value,
@@ -70,4 +73,13 @@ export class NganSachCreateComponent implements OnInit {
     return this.nganSach.controls;
   }
 
+  getMoney(event){
+    let mo = parseInt(event.target.value);
+    if (mo < 0){
+      this.isNavigate = true;
+    }else {
+      this.isNavigate = false;
+    }
+    this.money = this.api.DocTienBangChu(mo);
+  }
 }
