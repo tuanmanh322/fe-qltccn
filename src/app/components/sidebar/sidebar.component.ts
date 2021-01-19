@@ -66,13 +66,13 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-money-coins",
     class: ""
   },
-  {
-    path: "loai-thong-bao",
-    title: "Loại thông báo",
-    rtlTitle: "Loại thông báo",
-    icon: "icon-wifi",
-    class: ""
-  }
+  // {
+  //   path: "loai-thong-bao",
+  //   title: "Loại thông báo",
+  //   rtlTitle: "Loại thông báo",
+  //   icon: "icon-wifi",
+  //   class: ""
+  // }
   // {
   //   path: "loai-vi",
   //   title: "Loại ví",

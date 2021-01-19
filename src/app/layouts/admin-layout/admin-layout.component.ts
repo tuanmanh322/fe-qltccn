@@ -13,6 +13,7 @@ export class AdminLayoutComponent implements OnInit {
   public sidebarColor: string = "red";
   subscription: Subscription;
   public interval = interval(60000 * 60 * 8);
+  checkA = false;
   constructor(
     private ngbModal: NgbModal,
     private api: ApiService
@@ -51,10 +52,52 @@ export class AdminLayoutComponent implements OnInit {
     setInterval(() => {
       this.check();
     }, 60000);
+
+    // autoAdd notification
+    setInterval(() => {
+      this.check();
+      if (this.checkA === false){
+        this.addNoti();
+      }
+    }, 60000 * 5);
+  }
+
+  addNoti() {
+    let a = Math.floor(Math.random() * 8);
+    let title = '';
+    switch (a) {
+      case 0:
+      case 1:
+         title = 'Hãy cho chúng tôi biết bạn đã chi tiêu những gì trong ngày hôm nay';
+        break;
+      case 2:
+      case 3:
+        title = 'Bạn thật là tiết kiệm khi không tiêu gì trong ngày hôm nay!';
+        break;
+      case 4:
+      case 5:
+         title = 'Cập nhật thêm chi tiêu hàng ngày nào!';
+        break;
+      case 6:
+      case 7:
+        title = 'Bạn đã mua gì trong ngày hôm nay , hãy cho tôi biết!';
+        break;
+    }
+
+    const noti ={
+      idloaithongbao: 1,
+      mota: 'Thông báo về thu chi hàng ngày!',
+      noidung: title
+    }
+    this.api.post('/thong-bao/add', noti).subscribe(() => {
+
+    })
+
   }
 
   check(): void{
     this.api.get('/chi-phi/check-day').subscribe(res => {
+      this.checkA =res;
       if (res){
         this.subscription.unsubscribe();
       }else {

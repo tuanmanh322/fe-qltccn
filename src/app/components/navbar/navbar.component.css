@@ -1,0 +1,7 @@
+.search-text{
+  font-family: "Roboto Thin";
+}
+.search-text:hover{
+  cursor: pointer;
+  background-color: #00bbff;
+}

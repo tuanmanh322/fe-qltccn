@@ -2,10 +2,15 @@ import { Component, OnInit, ElementRef, OnDestroy } from "@angular/core";
 import { ROUTES } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from "../../share/service/auth.service";
 import {UserProfileModel} from "../../share/model/user-profile.model";
 import {StorageService} from "../../share/service/storage.service";
+import {ApiService} from "../../share/service/api.service";
+import {ThongBaoModel} from "../../share/model/thong-bao.model";
+import {Observable} from "rxjs";
+import {FormControl} from "@angular/forms";
+import {debounceTime, distinctUntilChanged, map, startWith} from "rxjs/operators";
 
 @Component({
   selector: "app-navbar",
@@ -23,13 +28,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   closeResult: string;
   userPro : UserProfileModel;
+  thongBao: ThongBaoModel[];
+  count = 0;
+
+  filterOptions: Observable<String[]>;
+  myControl = new FormControl();
+  options: string[] = ['Bảng điều khiển', 'Thu nhập', 'Chi tiêu','Ngân sách','Loại ngân sách','Trang cá nhân'];
   constructor(
     location: Location,
     private element: ElementRef,
     private router: Router,
     private modalService: NgbModal,
     private auth: AuthService,
-    private stora: StorageService
+    private stora: StorageService,
+    private api:ApiService
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -59,12 +71,74 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.mobile_menu_visible = 0;
       }
     });
+    this.fetchNoti();
+
+    setInterval(() => {
+      this.fetchNoti();
+    }, 10000);
+
+    this.filterOptions = this.myControl.valueChanges
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(400),
+        map((value: string) => this._filter(value))
+      );
+  }
+  private _filter(value: string): string[] {
+    if (value !== '' && value.length >0){
+      const filterValue = value.toLowerCase();
+      return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    }
+  }
+
+  moveToOption(noti: string){
+    switch (noti) {
+      case 'Bảng điều khiển':
+        this.router.navigate(['qltccn/dashboard']);
+        break;
+      case 'Thu nhập':
+        this.router.navigate(['qltccn/thu-nhap']);
+        break;
+      case 'Chi tiêu':
+        this.router.navigate(['qltccn/chi-phi']);
+        break;
+      case 'Ngân sách':
+        this.router.navigate(['qltccn/ngan-sach']);
+        break;
+      case 'Loại ngân sách':
+        this.router.navigate(['qltccn/loai-ngan-sach']);
+        break;
+      case 'Trang cá nhân':
+        this.router.navigate(['qltccn/user']);
+        break;
+    }
+    this.myControl.reset();
+  }
+
+  checkClick(){
+    this.api.get('/thong-bao/update').subscribe(() =>{
+      this.fetchNoti();
+    })
+
+
   }
   logout(){
     this.auth.logOut();
     this.router.navigate(['login']);
   }
+  fetchNoti(){
+    this.api.get('/thong-bao/all').subscribe(res =>{
+        this.thongBao = res;
+        let thongBa = this.thongBao.filter((th) =>{
+          return !th.trangthai;
+        });
+        this.count = thongBa.length;
+    })
+  }
 
+  moveToChiTieu() {
+    this.router.navigate(['qltccn/chi-phi']);
+  }
   collapse() {
     this.isCollapsed = !this.isCollapsed;
     const navbar = document.getElementsByTagName("nav")[0];

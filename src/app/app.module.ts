@@ -1,5 +1,5 @@
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NgModule} from "@angular/core";
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
@@ -47,6 +47,7 @@ import {ChartsModule} from "ng2-charts";
       provide: HTTP_INTERCEPTORS, useClass: ErrHttpInterceptor, multi: true
     }
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
 
   bootstrap: [AppComponent]
 })

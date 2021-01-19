@@ -121,14 +121,16 @@ export class ChiPhiCreateComponent implements OnInit {
     } else {
       this.isMax = false;
     }
-
-    this.api.get('/ngan-sach/lns/' + this.chiPhi.get('idLoaiNganSach').value).subscribe(res=>{
+    if (this.chiPhi.get('idLoaiNganSach').value !== null && this.chiPhi.get('idLoaiNganSach').value !== undefined && this.chiPhi.get('idLoaiNganSach').value !== ""){
+      this.api.get('/ngan-sach/lns/' + this.chiPhi.get('idLoaiNganSach').value).subscribe(res=>{
         this.moneyNS = res;
         var loaiNganSachA = this.listLNS.filter(lns => lns.id === parseInt(this.chiPhi.get('idLoaiNganSach').value))[0];
         let percent =  (moneyAdd / this.moneyNS) * 100;
         if (percent > loaiNganSachA.hanMuc){
           this.toastr.warning('Bạn đã vượt quá hạn mức cho phép!');
         }
-    })
+      })
+    }
+
   }
 }
